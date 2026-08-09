@@ -1,122 +1,196 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Khách hàng - Cày Thuê</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cày Thuê - Khách hàng</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <style>
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Arial,sans-serif;
-      background:#f5f7fb;
-      color:#222;
-    }
-    .box{
-      width:min(420px,92%);
-      margin:50px auto;
-      background:white;
-      padding:25px;
-      border-radius:16px;
-      box-shadow:0 8px 30px #0001;
-    }
-    h1{text-align:center}
-    input,button{
-      width:100%;
-      padding:13px;
-      margin-top:10px;
-      border-radius:9px;
-      border:1px solid #ddd;
-      font-size:15px;
-    }
-    button{
-      border:0;
-      background:#111827;
-      color:white;
-      cursor:pointer;
-    }
-    .hidden{display:none}
-    .wallet{
-      background:#eef2ff;
-      padding:18px;
-      border-radius:12px;
-      margin:15px 0;
-    }
-    .balance{
-      font-size:26px;
-      font-weight:bold;
-      margin-top:6px;
-    }
-    .msg{
-      margin-top:12px;
-      color:#d00;
-      font-size:14px;
-    }
-    .switch{
-      background:none;
-      color:#2563eb;
-      margin-top:8px;
-    }
-  </style>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f7fb;
+  color:#222
+}
+.box{
+  width:min(440px,92%);
+  margin:30px auto;
+  background:#fff;
+  padding:24px;
+  border-radius:16px;
+  box-shadow:0 8px 30px #0001
+}
+h1{text-align:center}
+input,button{
+  width:100%;
+  padding:13px;
+  margin-top:10px;
+  border-radius:9px;
+  border:1px solid #ddd;
+  font-size:15px
+}
+button{
+  border:0;
+  background:#111827;
+  color:#fff;
+  cursor:pointer
+}
+.hidden{display:none}
+.wallet{
+  background:#eef2ff;
+  padding:18px;
+  border-radius:12px;
+  margin:15px 0
+}
+.balance{
+  font-size:28px;
+  font-weight:bold;
+  margin-top:6px
+}
+.card{
+  background:#f8fafc;
+  padding:16px;
+  border-radius:12px;
+  margin-top:15px
+}
+.msg{
+  margin-top:12px;
+  font-size:14px;
+  color:#d00
+}
+.success{color:#15803d}
+.switch{
+  background:none;
+  color:#2563eb;
+  margin-top:8px
+}
+.deposit{
+  background:#16a34a
+}
+.logout{
+  background:#dc2626
+}
+.item{
+  padding:10px 0;
+  border-bottom:1px solid #eee;
+  font-size:14px
+}
+</style>
 </head>
 
 <body>
 
 <div class="box">
 
-  <!-- ĐĂNG NHẬP -->
-  <section id="loginBox">
-    <h1>Đăng nhập</h1>
+<!-- ĐĂNG NHẬP -->
+<section id="loginBox">
+<h1>Đăng nhập</h1>
 
-    <input id="loginEmail" type="email" placeholder="Email">
-    <input id="loginPassword" type="password" placeholder="Mật khẩu">
+<input id="loginEmail" type="email" placeholder="Email">
+<input id="loginPassword" type="password" placeholder="Mật khẩu">
 
-    <button id="loginBtn">Đăng nhập</button>
-    <button class="switch" id="showRegister">Chưa có tài khoản? Đăng ký</button>
+<button id="loginBtn">Đăng nhập</button>
+<button class="switch" id="showRegister">
+Chưa có tài khoản? Đăng ký
+</button>
 
-    <div id="loginMsg" class="msg"></div>
-  </section>
-
-
-  <!-- ĐĂNG KÝ -->
-  <section id="registerBox" class="hidden">
-    <h1>Đăng ký</h1>
-
-    <input id="registerName" type="text" placeholder="Họ tên">
-    <input id="registerEmail" type="email" placeholder="Email">
-    <input id="registerPassword" type="password" placeholder="Mật khẩu">
-
-    <button id="registerBtn">Tạo tài khoản</button>
-    <button class="switch" id="showLogin">Đã có tài khoản? Đăng nhập</button>
-
-    <div id="registerMsg" class="msg"></div>
-  </section>
+<div id="loginMsg" class="msg"></div>
+</section>
 
 
-  <!-- TÀI KHOẢN -->
-  <section id="accountBox" class="hidden">
+<!-- ĐĂNG KÝ -->
+<section id="registerBox" class="hidden">
 
-    <h1>Tài khoản</h1>
+<h1>Đăng ký</h1>
 
-    <p>Email:</p>
-    <b id="userEmail"></b>
+<input id="registerName" type="text" placeholder="Họ tên">
+<input id="registerEmail" type="email" placeholder="Email">
+<input id="registerPassword" type="password" placeholder="Mật khẩu">
 
-    <div class="wallet">
-      <div>Số dư</div>
-      <div class="balance" id="balance">0đ</div>
-    </div>
+<button id="registerBtn">Tạo tài khoản</button>
 
-    <button id="logoutBtn">Đăng xuất</button>
+<button class="switch" id="showLogin">
+Đã có tài khoản? Đăng nhập
+</button>
 
-  </section>
+<div id="registerMsg" class="msg"></div>
+
+</section>
+
+
+<!-- TÀI KHOẢN -->
+<section id="accountBox" class="hidden">
+
+<h1>Tài khoản</h1>
+
+<p>Email:</p>
+<b id="userEmail"></b>
+
+<div class="wallet">
+<div>Số dư</div>
+<div class="balance" id="balance">0đ</div>
+</div>
+
+
+<!-- NẠP TIỀN -->
+<div class="card">
+
+<h3>💰 Nạp tiền</h3>
+
+<p>Nhập số tiền bạn muốn nạp:</p>
+
+<input
+id="depositAmount"
+type="number"
+min="1000"
+placeholder="Ví dụ: 50000">
+
+<input
+id="transferCode"
+type="text"
+placeholder="Mã giao dịch / nội dung chuyển khoản">
+
+<input
+id="depositNote"
+type="text"
+placeholder="Ghi chú (không bắt buộc)">
+
+<button class="deposit" id="depositBtn">
+Gửi yêu cầu nạp tiền
+</button>
+
+<div id="depositMsg" class="msg"></div>
 
 </div>
+
+
+<!-- LỊCH SỬ NẠP -->
+<div class="card">
+
+<h3>📋 Lịch sử nạp tiền</h3>
+
+<div id="depositList">
+Chưa có giao dịch
+</div>
+
+</div>
+
+
+<button class="logout" id="logoutBtn">
+Đăng xuất
+</button>
+
+</section>
+
+</div>
+
 
 <script src="config.js"></script>
 
 <script>
+
 const sb = supabase.createClient(
   window.SUPABASE_URL,
   window.SUPABASE_KEY
@@ -125,55 +199,85 @@ const sb = supabase.createClient(
 const $ = id => document.getElementById(id);
 
 function money(n){
-  return new Intl.NumberFormat("vi-VN").format(n || 0) + "đ";
+  return new Intl.NumberFormat("vi-VN")
+    .format(n || 0) + "đ";
 }
 
+
 function showLogin(){
+
   $("loginBox").classList.remove("hidden");
   $("registerBox").classList.add("hidden");
   $("accountBox").classList.add("hidden");
+
 }
 
+
 function showRegister(){
+
   $("loginBox").classList.add("hidden");
   $("registerBox").classList.remove("hidden");
   $("accountBox").classList.add("hidden");
+
 }
 
+
 function showAccount(){
+
   $("loginBox").classList.add("hidden");
   $("registerBox").classList.add("hidden");
   $("accountBox").classList.remove("hidden");
+
 }
+
 
 $("showRegister").onclick = showRegister;
 $("showLogin").onclick = showLogin;
 
+
+/* ĐĂNG KÝ */
+
 $("registerBtn").onclick = async () => {
 
-  $("registerMsg").textContent = "Đang tạo tài khoản...";
+  $("registerMsg").textContent =
+    "Đang tạo tài khoản...";
 
-  const name = $("registerName").value.trim();
-  const email = $("registerEmail").value.trim();
-  const password = $("registerPassword").value;
+  const name =
+    $("registerName").value.trim();
+
+  const email =
+    $("registerEmail").value.trim();
+
+  const password =
+    $("registerPassword").value;
 
   if(!name || !email || !password){
-    $("registerMsg").textContent = "Vui lòng nhập đầy đủ thông tin.";
+
+    $("registerMsg").textContent =
+      "Vui lòng nhập đầy đủ thông tin.";
+
     return;
   }
 
   if(password.length < 6){
-    $("registerMsg").textContent = "Mật khẩu phải có ít nhất 6 ký tự.";
+
+    $("registerMsg").textContent =
+      "Mật khẩu phải có ít nhất 6 ký tự.";
+
     return;
   }
 
-  const {data, error} = await sb.auth.signUp({
-    email,
-    password
-  });
+  const {data,error} =
+    await sb.auth.signUp({
+      email,
+      password
+    });
 
   if(error){
-    $("registerMsg").textContent = error.message;
+
+    $("registerMsg").textContent =
+      error.message;
+
     return;
   }
 
@@ -184,30 +288,42 @@ $("registerBtn").onclick = async () => {
         full_name:name,
         email:email
       })
-      .eq("id", data.user.id);
+      .eq("id",data.user.id);
+
   }
 
   $("registerMsg").textContent =
-    "Đăng ký thành công. Bạn có thể đăng nhập.";
+    "Đăng ký thành công.";
 
-  setTimeout(showLogin, 1000);
+  setTimeout(showLogin,1000);
+
 };
 
 
+/* ĐĂNG NHẬP */
+
 $("loginBtn").onclick = async () => {
 
-  $("loginMsg").textContent = "Đang đăng nhập...";
+  $("loginMsg").textContent =
+    "Đang đăng nhập...";
 
-  const email = $("loginEmail").value.trim();
-  const password = $("loginPassword").value;
+  const email =
+    $("loginEmail").value.trim();
 
-  const {data, error} = await sb.auth.signInWithPassword({
-    email,
-    password
-  });
+  const password =
+    $("loginPassword").value;
+
+  const {data,error} =
+    await sb.auth.signInWithPassword({
+      email,
+      password
+    });
 
   if(error){
-    $("loginMsg").textContent = error.message;
+
+    $("loginMsg").textContent =
+      error.message;
+
     return;
   }
 
@@ -216,26 +332,174 @@ $("loginBtn").onclick = async () => {
 };
 
 
+/* TẢI TÀI KHOẢN */
+
 async function loadAccount(user){
 
   showAccount();
 
-  $("userEmail").textContent = user.email;
+  $("userEmail").textContent =
+    user.email;
 
-  const {data, error} = await sb
-    .from("wallets")
-    .select("balance")
-    .eq("user_id", user.id)
-    .single();
+  const {data,error} =
+    await sb
+      .from("wallets")
+      .select("balance")
+      .eq("user_id",user.id)
+      .single();
 
   if(error){
-    $("balance").textContent = "0đ";
+
+    $("balance").textContent =
+      "0đ";
+
+  }else{
+
+    $("balance").textContent =
+      money(data.balance);
+
+  }
+
+  loadDeposits(user);
+
+}
+
+
+/* GỬI YÊU CẦU NẠP */
+
+$("depositBtn").onclick = async () => {
+
+  $("depositMsg").textContent =
+    "Đang gửi yêu cầu...";
+
+  $("depositMsg").classList.remove("success");
+
+  const amount =
+    Number($("depositAmount").value);
+
+  const transferCode =
+    $("transferCode").value.trim();
+
+  const note =
+    $("depositNote").value.trim();
+
+
+  if(!amount || amount < 1000){
+
+    $("depositMsg").textContent =
+      "Số tiền tối thiểu là 1.000đ.";
+
     return;
   }
 
-  $("balance").textContent = money(data.balance);
+
+  const {data:{user}} =
+    await sb.auth.getUser();
+
+
+  if(!user){
+
+    $("depositMsg").textContent =
+      "Phiên đăng nhập đã hết.";
+
+    return;
+  }
+
+
+  const {error} =
+    await sb
+      .from("deposit_requests")
+      .insert({
+
+        user_id:user.id,
+        amount:amount,
+        transfer_code:transferCode,
+        note:note
+
+      });
+
+
+  if(error){
+
+    $("depositMsg").textContent =
+      error.message;
+
+    return;
+  }
+
+
+  $("depositMsg").textContent =
+    "Đã gửi yêu cầu. Chờ Admin duyệt.";
+
+  $("depositMsg").classList.add("success");
+
+  $("depositAmount").value="";
+  $("transferCode").value="";
+  $("depositNote").value="";
+
+  loadDeposits(user);
+
+};
+
+
+/* LỊCH SỬ */
+
+async function loadDeposits(user){
+
+  const {data,error} =
+    await sb
+      .from("deposit_requests")
+      .select("*")
+      .eq("user_id",user.id)
+      .order("created_at",{ascending:false});
+
+
+  if(error){
+
+    $("depositList").textContent =
+      "Không tải được lịch sử.";
+
+    return;
+  }
+
+
+  if(!data.length){
+
+    $("depositList").textContent =
+      "Chưa có giao dịch.";
+
+    return;
+  }
+
+
+  $("depositList").innerHTML =
+    data.map(x => {
+
+      let status =
+        x.status === "approved"
+        ? "✅ Đã duyệt"
+        : x.status === "rejected"
+        ? "❌ Từ chối"
+        : "⏳ Chờ duyệt";
+
+      return `
+        <div class="item">
+          <b>${money(x.amount)}</b>
+          <br>
+          ${status}
+          <br>
+          <small>
+            ${new Date(x.created_at).toLocaleString("vi-VN")}
+          </small>
+        </div>
+      `;
+
+    }).join("");
+
 }
 
+
+/* ĐĂNG XUẤT */
 
 $("logoutBtn").onclick = async () => {
 
@@ -246,15 +510,24 @@ $("logoutBtn").onclick = async () => {
 };
 
 
-sb.auth.onAuthStateChange((event, session) => {
+/* KIỂM TRA SESSION */
 
-  if(session){
-    loadAccount(session.user);
-  }else{
-    showLogin();
+sb.auth.onAuthStateChange(
+  (event,session) => {
+
+    if(session){
+
+      loadAccount(session.user);
+
+    }else{
+
+      showLogin();
+
+    }
+
   }
+);
 
-});
 </script>
 
 </body>
