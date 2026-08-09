@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Khách hàng - Cày Thuê</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#f5f7fb;
+      color:#222;
+    }
+    .box{
+      width:min(420px,92%);
+      margin:50px auto;
+      background:white;
+      padding:25px;
+      border-radius:16px;
+      box-shadow:0 8px 30px #0001;
+    }
+    h1{text-align:center}
+    input,button{
+      width:100%;
+      padding:13px;
+      margin-top:10px;
+      border-radius:9px;
+      border:1px solid #ddd;
+      font-size:15px;
+    }
+    button{
+      border:0;
+      background:#111827;
+      color:white;
+      cursor:pointer;
+    }
+    .hidden{display:none}
+    .wallet{
+      background:#eef2ff;
+      padding:18px;
+      border-radius:12px;
+      margin:15px 0;
+    }
+    .balance{
+      font-size:26px;
+      font-weight:bold;
+      margin-top:6px;
+    }
+    .msg{
+      margin-top:12px;
+      color:#d00;
+      font-size:14px;
+    }
+    .switch{
+      background:none;
+      color:#2563eb;
+      margin-top:8px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+
+  <!-- ĐĂNG NHẬP -->
+  <section id="loginBox">
+    <h1>Đăng nhập</h1>
+
+    <input id="loginEmail" type="email" placeholder="Email">
+    <input id="loginPassword" type="password" placeholder="Mật khẩu">
+
+    <button id="loginBtn">Đăng nhập</button>
+    <button class="switch" id="showRegister">Chưa có tài khoản? Đăng ký</button>
+
+    <div id="loginMsg" class="msg"></div>
+  </section>
+
+
+  <!-- ĐĂNG KÝ -->
+  <section id="registerBox" class="hidden">
+    <h1>Đăng ký</h1>
+
+    <input id="registerName" type="text" placeholder="Họ tên">
+    <input id="registerEmail" type="email" placeholder="Email">
+    <input id="registerPassword" type="password" placeholder="Mật khẩu">
+
+    <button id="registerBtn">Tạo tài khoản</button>
+    <button class="switch" id="showLogin">Đã có tài khoản? Đăng nhập</button>
+
+    <div id="registerMsg" class="msg"></div>
+  </section>
+
+
+  <!-- TÀI KHOẢN -->
+  <section id="accountBox" class="hidden">
+
+    <h1>Tài khoản</h1>
+
+    <p>Email:</p>
+    <b id="userEmail"></b>
+
+    <div class="wallet">
+      <div>Số dư</div>
+      <div class="balance" id="balance">0đ</div>
+    </div>
+
+    <button id="logoutBtn">Đăng xuất</button>
+
+  </section>
+
+</div>
+
+<script src="config.js"></script>
+
+<script>
+const sb = supabase.createClient(
+  window.SUPABASE_URL,
+  window.SUPABASE_KEY
+);
+
+const $ = id => document.getElementById(id);
+
+function money(n){
+  return new Intl.NumberFormat("vi-VN").format(n || 0) + "đ";
+}
+
+function showLogin(){
+  $("loginBox").classList.remove("hidden");
+  $("registerBox").classList.add("hidden");
+  $("accountBox").classList.add("hidden");
+}
+
+function showRegister(){
+  $("loginBox").classList.add("hidden");
+  $("registerBox").classList.remove("hidden");
+  $("accountBox").classList.add("hidden");
+}
+
+function showAccount(){
+  $("loginBox").classList.add("hidden");
+  $("registerBox").classList.add("hidden");
+  $("accountBox").classList.remove("hidden");
+}
+
+$("showRegister").onclick = showRegister;
+$("showLogin").onclick = showLogin;
+
+$("registerBtn").onclick = async () => {
+
+  $("registerMsg").textContent = "Đang tạo tài khoản...";
+
+  const name = $("registerName").value.trim();
+  const email = $("registerEmail").value.trim();
+  const password = $("registerPassword").value;
+
+  if(!name || !email || !password){
+    $("registerMsg").textContent = "Vui lòng nhập đầy đủ thông tin.";
+    return;
+  }
+
+  if(password.length < 6){
+    $("registerMsg").textContent = "Mật khẩu phải có ít nhất 6 ký tự.";
+    return;
+  }
+
+  const {data, error} = await sb.auth.signUp({
+    email,
+    password
+  });
+
+  if(error){
+    $("registerMsg").textContent = error.message;
+    return;
+  }
+
+  if(data.user){
+
+    await sb.from("profiles")
+      .update({
+        full_name:name,
+        email:email
+      })
+      .eq("id", data.user.id);
+  }
+
+  $("registerMsg").textContent =
+    "Đăng ký thành công. Bạn có thể đăng nhập.";
+
+  setTimeout(showLogin, 1000);
+};
+
+
+$("loginBtn").onclick = async () => {
+
+  $("loginMsg").textContent = "Đang đăng nhập...";
+
+  const email = $("loginEmail").value.trim();
+  const password = $("loginPassword").value;
+
+  const {data, error} = await sb.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if(error){
+    $("loginMsg").textContent = error.message;
+    return;
+  }
+
+  await loadAccount(data.user);
+
+};
+
+
+async function loadAccount(user){
+
+  showAccount();
+
+  $("userEmail").textContent = user.email;
+
+  const {data, error} = await sb
+    .from("wallets")
+    .select("balance")
+    .eq("user_id", user.id)
+    .single();
+
+  if(error){
+    $("balance").textContent = "0đ";
+    return;
+  }
+
+  $("balance").textContent = money(data.balance);
+}
+
+
+$("logoutBtn").onclick = async () => {
+
+  await sb.auth.signOut();
+
+  showLogin();
+
+};
+
+
+sb.auth.onAuthStateChange((event, session) => {
+
+  if(session){
+    loadAccount(session.user);
+  }else{
+    showLogin();
+  }
+
+});
+</script>
+
+</body>
+</html>
