@@ -23,7 +23,6 @@ body{
   box-shadow:0 8px 30px #0001
 }
 h1{text-align:center}
-h3{margin-top:0}
 input,select,textarea,button{
   width:100%;
   padding:13px;
@@ -32,7 +31,10 @@ input,select,textarea,button{
   border:1px solid #ddd;
   font-size:15px
 }
-textarea{min-height:80px;resize:vertical}
+textarea{
+  min-height:80px;
+  resize:vertical
+}
 button{
   border:0;
   background:#111827;
@@ -140,42 +142,75 @@ button{
 
 <div class="box">
 
-<!-- LOGIN -->
+<!-- ================= ĐĂNG NHẬP ================= -->
+
 <section id="loginBox">
+
 <h1>🔐 Đăng nhập</h1>
 
-<input id="loginEmail" type="email" placeholder="Email">
-<input id="loginPassword" type="password" placeholder="Mật khẩu">
+<input
+id="loginEmail"
+type="email"
+placeholder="Email">
 
-<button id="loginBtn">Đăng nhập</button>
+<input
+id="loginPassword"
+type="password"
+placeholder="Mật khẩu">
 
-<button class="switch" id="showRegister">
+<button id="loginBtn">
+Đăng nhập
+</button>
+
+<button
+class="switch"
+id="showRegister">
 Chưa có tài khoản? Đăng ký
 </button>
 
 <div id="loginMsg" class="msg"></div>
+
 </section>
 
 
-<!-- REGISTER -->
+<!-- ================= ĐĂNG KÝ ================= -->
+
 <section id="registerBox" class="hidden">
+
 <h1>📝 Đăng ký</h1>
 
-<input id="registerName" type="text" placeholder="Họ tên">
-<input id="registerEmail" type="email" placeholder="Email">
-<input id="registerPassword" type="password" placeholder="Mật khẩu">
+<input
+id="registerName"
+type="text"
+placeholder="Họ tên">
 
-<button id="registerBtn">Tạo tài khoản</button>
+<input
+id="registerEmail"
+type="email"
+placeholder="Email">
 
-<button class="switch" id="showLogin">
+<input
+id="registerPassword"
+type="password"
+placeholder="Mật khẩu">
+
+<button id="registerBtn">
+Tạo tài khoản
+</button>
+
+<button
+class="switch"
+id="showLogin">
 Đã có tài khoản? Đăng nhập
 </button>
 
 <div id="registerMsg" class="msg"></div>
+
 </section>
 
 
-<!-- ACCOUNT -->
+<!-- ================= TÀI KHOẢN ================= -->
+
 <section id="accountBox" class="hidden">
 
 <h1>👤 Tài khoản</h1>
@@ -183,34 +218,53 @@ Chưa có tài khoản? Đăng ký
 <p>Email:</p>
 <b id="userEmail"></b>
 
+
+<!-- SỐ DƯ -->
+
 <div class="wallet">
+
 <div>Số dư</div>
-<div class="balance" id="balance">0đ</div>
+
+<div
+class="balance"
+id="balance">
+0đ
+</div>
+
 </div>
 
 
-<!-- NẠP TIỀN -->
+<!-- ================= NẠP TIỀN ================= -->
+
 <div class="card">
 
 <h3>💰 Nạp tiền</h3>
 
 <div class="bank-info">
+
 <div>🏦 Ngân hàng nhận tiền</div>
+
 <b>VietinBank</b>
 
 <div style="margin-top:10px">
 Số tài khoản
 </div>
+
 <b>0942180769</b>
+
 </div>
 
-<label class="label">Số tiền muốn nạp</label>
+
+<label class="label">
+Số tiền muốn nạp
+</label>
 
 <input
 id="depositAmount"
 type="number"
 min="1000"
 placeholder="Ví dụ: 50000">
+
 
 <label class="label">
 Tên tài khoản khách hàng
@@ -221,6 +275,7 @@ id="customerAccountName"
 type="text"
 placeholder="Tên tài khoản khách hàng">
 
+
 <label class="label">
 Mã giao dịch / nội dung chuyển khoản
 </label>
@@ -230,7 +285,10 @@ id="transferCode"
 type="text"
 placeholder="Ví dụ: NAP123456">
 
-<button class="deposit" id="depositBtn">
+
+<button
+class="deposit"
+id="depositBtn">
 Gửi yêu cầu nạp tiền
 </button>
 
@@ -239,12 +297,16 @@ Gửi yêu cầu nạp tiền
 </div>
 
 
-<!-- ĐẶT DỊCH VỤ -->
+<!-- ================= ĐẶT DỊCH VỤ ================= -->
+
 <div class="card">
 
 <h3>🎮 Đặt dịch vụ</h3>
 
 <p>Chọn dịch vụ:</p>
+
+
+<!-- DỊCH VỤ 1 -->
 
 <div
 class="service"
@@ -266,6 +328,8 @@ data-price="50000">
 </div>
 
 
+<!-- DỊCH VỤ 2 -->
+
 <div
 class="service"
 data-service="Lấy D.Clan"
@@ -286,11 +350,14 @@ data-price="200000">
 </div>
 
 
-<div id="selectedService"
+<div
+id="selectedService"
 style="margin-top:12px;font-weight:bold">
 Chưa chọn dịch vụ
 </div>
 
+
+<!-- TÀI KHOẢN GAME -->
 
 <label class="label">
 Tài khoản game
@@ -302,6 +369,8 @@ type="text"
 placeholder="Nhập tài khoản game">
 
 
+<!-- MẬT KHẨU GAME -->
+
 <label class="label">
 Mật khẩu game
 </label>
@@ -311,6 +380,8 @@ id="gamePassword"
 type="password"
 placeholder="Nhập mật khẩu game">
 
+
+<!-- GHI CHÚ -->
 
 <label class="label">
 Ghi chú
@@ -323,7 +394,7 @@ placeholder="Ghi chú cho người cày (nếu có)">
 
 
 <div class="warning">
-⚠️ Vui lòng kiểm tra kỹ dịch vụ và giá trước khi đặt.
+⚠️ Kiểm tra kỹ dịch vụ và giá trước khi tạo đơn.
 Thời gian thực hiện có thể mất vài ngày.
 </div>
 
@@ -334,12 +405,16 @@ id="orderBtn">
 Tạo đơn
 </button>
 
-<div id="orderMsg" class="msg"></div>
+<div
+id="orderMsg"
+class="msg">
+</div>
 
 </div>
 
 
-<!-- LỊCH SỬ ĐƠN -->
+<!-- ================= LỊCH SỬ ĐƠN ================= -->
+
 <div class="card">
 
 <h3>📋 Đơn hàng của tôi</h3>
@@ -372,12 +447,14 @@ const sb = supabase.createClient(
 );
 
 const $ = id =>
-document.getElementById(id);
+  document.getElementById(id);
 
 
 function money(n){
-return new Intl.NumberFormat("vi-VN")
-.format(n || 0) + "đ";
+
+  return new Intl.NumberFormat("vi-VN")
+    .format(n || 0) + "đ";
+
 }
 
 
@@ -385,115 +462,157 @@ return new Intl.NumberFormat("vi-VN")
 
 function showLogin(){
 
-$("loginBox").classList.remove("hidden");
-$("registerBox").classList.add("hidden");
-$("accountBox").classList.add("hidden");
+  $("loginBox").classList.remove("hidden");
+
+  $("registerBox").classList.add("hidden");
+
+  $("accountBox").classList.add("hidden");
 
 }
+
 
 function showRegister(){
 
-$("loginBox").classList.add("hidden");
-$("registerBox").classList.remove("hidden");
-$("accountBox").classList.add("hidden");
+  $("loginBox").classList.add("hidden");
+
+  $("registerBox").classList.remove("hidden");
+
+  $("accountBox").classList.add("hidden");
 
 }
+
 
 function showAccount(){
 
-$("loginBox").classList.add("hidden");
-$("registerBox").classList.add("hidden");
-$("accountBox").classList.remove("hidden");
+  $("loginBox").classList.add("hidden");
+
+  $("registerBox").classList.add("hidden");
+
+  $("accountBox").classList.remove("hidden");
 
 }
 
-$("showRegister").onclick=showRegister;
-$("showLogin").onclick=showLogin;
+
+$("showRegister").onclick =
+  showRegister;
+
+$("showLogin").onclick =
+  showLogin;
 
 
 /* ================= ĐĂNG KÝ ================= */
 
-$("registerBtn").onclick=async()=>{
+$("registerBtn").onclick = async () => {
 
-$("registerMsg").textContent="Đang tạo tài khoản...";
+  $("registerMsg").textContent =
+    "Đang tạo tài khoản...";
 
-const name=$("registerName").value.trim();
-const email=$("registerEmail").value.trim();
-const password=$("registerPassword").value;
+  const name =
+    $("registerName").value.trim();
 
-if(!name||!email||!password){
+  const email =
+    $("registerEmail").value.trim();
 
-$("registerMsg").textContent=
-"Vui lòng nhập đầy đủ thông tin.";
+  const password =
+    $("registerPassword").value;
 
-return;
-}
 
-if(password.length<6){
+  if(!name || !email || !password){
 
-$("registerMsg").textContent=
-"Mật khẩu phải có ít nhất 6 ký tự.";
+    $("registerMsg").textContent =
+      "Vui lòng nhập đầy đủ thông tin.";
 
-return;
-}
+    return;
+  }
 
-const {data,error}=await sb.auth.signUp({
-email,
-password
-});
 
-if(error){
+  if(password.length < 6){
 
-$("registerMsg").textContent=error.message;
-return;
+    $("registerMsg").textContent =
+      "Mật khẩu phải có ít nhất 6 ký tự.";
 
-}
+    return;
+  }
 
-if(data.user){
 
-await sb
-.from("profiles")
-.update({
-full_name:name,
-email:email
-})
-.eq("id",data.user.id);
+  const {data,error} =
+    await sb.auth.signUp({
+      email,
+      password
+    });
 
-}
 
-$("registerMsg").textContent=
-"Đăng ký thành công. Bạn có thể đăng nhập.";
+  if(error){
 
-$("registerMsg").classList.add("success");
+    $("registerMsg").textContent =
+      error.message;
 
-setTimeout(showLogin,1000);
+    return;
+  }
+
+
+  if(data.user){
+
+    await sb
+      .from("profiles")
+      .update({
+        full_name:name,
+        email:email
+      })
+      .eq("id",data.user.id);
+
+  }
+
+
+  $("registerMsg").textContent =
+    "Đăng ký thành công.";
+
+  $("registerMsg")
+    .classList.add("success");
+
+  setTimeout(
+    showLogin,
+    1000
+  );
 
 };
 
 
-/* ================= LOGIN ================= */
+/* ================= ĐĂNG NHẬP ================= */
 
-$("loginBtn").onclick=async()=>{
+$("loginBtn").onclick = async () => {
 
-$("loginMsg").textContent="Đang đăng nhập...";
+  $("loginMsg").textContent =
+    "Đang đăng nhập...";
 
-const email=$("loginEmail").value.trim();
-const password=$("loginPassword").value;
+  const email =
+    $("loginEmail").value.trim();
 
-const {data,error}=
-await sb.auth.signInWithPassword({
-email,
-password
-});
+  const password =
+    $("loginPassword").value;
 
-if(error){
 
-$("loginMsg").textContent=error.message;
-return;
+  const {data,error} =
+    await sb.auth.signInWithPassword({
 
-}
+      email,
+      password
 
-await loadAccount(data.user);
+    });
+
+
+  if(error){
+
+    $("loginMsg").textContent =
+      error.message;
+
+    return;
+  }
+
+
+  await loadAccount(
+    data.user
+  );
 
 };
 
@@ -502,131 +621,155 @@ await loadAccount(data.user);
 
 async function loadAccount(user){
 
-showAccount();
+  showAccount();
 
-$("userEmail").textContent=user.email;
+  $("userEmail").textContent =
+    user.email;
 
 
-const {data,error}=
-await sb
-.from("wallets")
-.select("balance")
-.eq("user_id",user.id)
-.single();
+  const {data,error} =
+    await sb
+      .from("wallets")
+      .select("balance")
+      .eq("user_id",user.id)
+      .single();
 
-if(error){
 
-$("balance").textContent="0đ";
+  if(error){
 
-}else{
+    $("balance").textContent =
+      "0đ";
 
-$("balance").textContent=
-money(data.balance);
+  }else{
 
-}
+    $("balance").textContent =
+      money(data.balance);
 
-loadDeposits(user);
-loadOrders(user);
+  }
+
+
+  loadDeposits(user);
+
+  loadOrders(user);
 
 }
 
 
 /* ================= NẠP TIỀN ================= */
 
-$("depositBtn").onclick=async()=>{
+$("depositBtn").onclick = async () => {
 
-const msg=$("depositMsg");
+  const msg =
+    $("depositMsg");
 
-msg.textContent="Đang gửi yêu cầu...";
-msg.classList.remove("success");
+  msg.textContent =
+    "Đang gửi yêu cầu...";
 
-const amount=
-Number($("depositAmount").value);
-
-const customerAccountName=
-$("customerAccountName").value.trim();
-
-const transferCode=
-$("transferCode").value.trim();
-
-if(!amount||amount<1000){
-
-msg.textContent=
-"Số tiền tối thiểu là 1.000đ.";
-
-return;
-
-}
-
-if(!customerAccountName){
-
-msg.textContent=
-"Vui lòng nhập tên tài khoản khách hàng.";
-
-return;
-
-}
-
-if(!transferCode){
-
-msg.textContent=
-"Vui lòng nhập mã giao dịch.";
-
-return;
-
-}
-
-const {
-data:{user}
-}=await sb.auth.getUser();
-
-if(!user){
-
-msg.textContent=
-"Phiên đăng nhập đã hết.";
-
-return;
-
-}
+  msg.classList.remove("success");
 
 
-const note=
-"Ngân hàng: VietinBank"+
-" | STK nhận tiền: 0942180769"+
-" | Tên tài khoản khách: "+
-customerAccountName;
+  const amount =
+    Number(
+      $("depositAmount").value
+    );
+
+  const customerAccountName =
+    $("customerAccountName")
+      .value.trim();
+
+  const transferCode =
+    $("transferCode")
+      .value.trim();
 
 
-const {error}=
-await sb
-.from("deposit_requests")
-.insert({
+  if(!amount || amount < 1000){
 
-user_id:user.id,
-amount:amount,
-transfer_code:transferCode,
-note:note
+    msg.textContent =
+      "Số tiền tối thiểu là 1.000đ.";
 
-});
+    return;
+  }
 
 
-if(error){
+  if(!customerAccountName){
 
-msg.textContent=error.message;
-return;
+    msg.textContent =
+      "Vui lòng nhập tên tài khoản khách hàng.";
 
-}
+    return;
+  }
 
-msg.textContent=
-"Đã gửi yêu cầu. Chờ Admin duyệt.";
 
-msg.classList.add("success");
+  if(!transferCode){
 
-$("depositAmount").value="";
-$("customerAccountName").value="";
-$("transferCode").value="";
+    msg.textContent =
+      "Vui lòng nhập mã giao dịch.";
 
-loadDeposits(user);
+    return;
+  }
+
+
+  const {
+    data:{user}
+  } =
+    await sb.auth.getUser();
+
+
+  if(!user){
+
+    msg.textContent =
+      "Phiên đăng nhập đã hết.";
+
+    return;
+  }
+
+
+  const note =
+    "Ngân hàng: VietinBank" +
+    " | STK nhận tiền: 0942180769" +
+    " | Tên tài khoản khách: " +
+    customerAccountName;
+
+
+  const {error} =
+    await sb
+      .from("deposit_requests")
+      .insert({
+
+        user_id:user.id,
+
+        amount:amount,
+
+        transfer_code:transferCode,
+
+        note:note
+
+      });
+
+
+  if(error){
+
+    msg.textContent =
+      error.message;
+
+    return;
+  }
+
+
+  msg.textContent =
+    "✅ Đã gửi yêu cầu. Chờ Admin duyệt.";
+
+  msg.classList.add("success");
+
+
+  $("depositAmount").value = "";
+
+  $("customerAccountName").value = "";
+
+  $("transferCode").value = "";
+
+
+  loadDeposits(user);
 
 };
 
@@ -635,227 +778,269 @@ loadDeposits(user);
 
 async function loadDeposits(user){
 
-const {data,error}=
-await sb
-.from("deposit_requests")
-.select("*")
-.eq("user_id",user.id)
-.order("created_at",{ascending:false});
+  const {data,error} =
+    await sb
+      .from("deposit_requests")
+      .select("*")
+      .eq("user_id",user.id)
+      .order(
+        "created_at",
+        {ascending:false}
+      );
 
-if(error){
 
-$("depositList").textContent=
-"Không tải được lịch sử.";
+  if(error){
 
-return;
+    $("depositList").textContent =
+      "Không tải được lịch sử.";
 
-}
+    return;
+  }
 
-if(!data||!data.length){
 
-$("depositList").textContent=
-"Chưa có giao dịch.";
+  if(!data || !data.length){
 
-return;
+    $("depositList").textContent =
+      "Chưa có giao dịch.";
 
-}
+    return;
+  }
 
-$("depositList").innerHTML=
-data.map(x=>{
 
-const status=
-x.status==="approved"
-?"✅ Đã duyệt"
-:x.status==="rejected"
-?"❌ Từ chối"
-:"⏳ Chờ duyệt";
+  $("depositList").innerHTML =
+    data.map(x => {
 
-return `
+      const status =
+        x.status === "approved"
+        ? "✅ Đã duyệt"
+        : x.status === "rejected"
+        ? "❌ Từ chối"
+        : "⏳ Chờ duyệt";
 
-<div class="item">
 
-<b>${money(x.amount)}</b>
+      return `
 
-<br>
+        <div class="item">
 
-${status}
+          <b>${money(x.amount)}</b>
 
-<br>
+          <br>
 
-<small>
-${new Date(x.created_at)
-.toLocaleString("vi-VN")}
-</small>
+          ${status}
 
-<br>
+          <br>
 
-<small>
-Mã giao dịch:
-${x.transfer_code||"—"}
-</small>
+          <small>
+          ${new Date(x.created_at)
+            .toLocaleString("vi-VN")}
+          </small>
 
-</div>
+          <br>
 
-`;
+          <small>
+          Mã giao dịch:
+          ${x.transfer_code || "—"}
+          </small>
 
-}).join("");
+        </div>
+
+      `;
+
+    }).join("");
 
 }
 
 
 /* ================= CHỌN DỊCH VỤ ================= */
 
-let selectedService="";
-let selectedPrice=0;
+let selectedService = "";
+
+let selectedPrice = 0;
 
 
-document.querySelectorAll(".service")
-.forEach(card=>{
+document
+  .querySelectorAll(".service")
+  .forEach(card => {
 
-card.onclick=()=>{
+    card.onclick = () => {
 
-document.querySelectorAll(".service")
-.forEach(x=>
-x.classList.remove("selected")
-);
+      document
+        .querySelectorAll(".service")
+        .forEach(x =>
+          x.classList.remove(
+            "selected"
+          )
+        );
 
-card.classList.add("selected");
 
-selectedService=
-card.dataset.service;
+      card.classList.add(
+        "selected"
+      );
 
-selectedPrice=
-Number(card.dataset.price);
 
-$("selectedService").textContent=
-"Đã chọn: Haze Seas — "+
-selectedService+
-" — "+
-money(selectedPrice);
+      selectedService =
+        card.dataset.service;
 
-};
+      selectedPrice =
+        Number(
+          card.dataset.price
+        );
 
-});
+
+      $("selectedService")
+        .textContent =
+        "Đã chọn: Haze Seas — " +
+        selectedService +
+        " — " +
+        money(selectedPrice);
+
+    };
+
+  });
 
 
 /* ================= TẠO ĐƠN ================= */
 
-$("orderBtn").onclick=async()=>{
+$("orderBtn").onclick = async () => {
 
-const msg=$("orderMsg");
+  const msg =
+    $("orderMsg");
 
-msg.textContent="";
+  msg.textContent = "";
 
-if(!selectedService){
-
-msg.textContent=
-"Vui lòng chọn dịch vụ.";
-
-return;
-
-}
-
-const username=
-$("gameUsername").value.trim();
-
-const password=
-$("gamePassword").value;
-
-const note=
-$("orderNote").value.trim();
-
-if(!username){
-
-msg.textContent=
-"Vui lòng nhập tài khoản game.";
-
-return;
-
-}
-
-if(!password){
-
-msg.textContent=
-"Vui lòng nhập mật khẩu game.";
-
-return;
-
-}
+  msg.classList.remove("success");
 
 
-const {
-data:{user}
-}=await sb.auth.getUser();
+  if(!selectedService){
 
-if(!user){
+    msg.textContent =
+      "Vui lòng chọn dịch vụ.";
 
-msg.textContent=
-"Phiên đăng nhập đã hết.";
-
-return;
-
-}
+    return;
+  }
 
 
-/*
-  Không tự trừ tiền bằng JavaScript.
-  Đơn được tạo với trạng thái Chờ xử lý.
-  Việc trừ tiền nên được xử lý bằng
-  database/RPC có kiểm tra số dư.
-*/
+  const username =
+    $("gameUsername")
+      .value.trim();
 
-const orderNote=
-"Thông tin game cần bảo mật."+
-(note
-?" | Ghi chú: "+note
-:"");
+  const password =
+    $("gamePassword")
+      .value;
 
-
-const {error}=await sb
-.from("orders")
-.insert({
-
-customer:user.email,
-contact:user.email,
-game:"Haze Seas",
-service:selectedService,
-price:selectedPrice,
-booster:"",
-status:"Chờ xử lý",
-note:orderNote
-
-});
+  const note =
+    $("orderNote")
+      .value.trim();
 
 
-if(error){
+  if(!username){
 
-msg.textContent=error.message;
-return;
+    msg.textContent =
+      "Vui lòng nhập tài khoản game.";
 
-}
+    return;
+  }
 
 
-msg.textContent=
-"✅ Đã tạo đơn. Admin sẽ xử lý.";
+  if(!password){
 
-msg.classList.add("success");
+    msg.textContent =
+      "Vui lòng nhập mật khẩu game.";
 
-$("gameUsername").value="";
-$("gamePassword").value="";
-$("orderNote").value="";
+    return;
+  }
 
-document.querySelectorAll(".service")
-.forEach(x=>
-x.classList.remove("selected")
-);
 
-selectedService="";
-selectedPrice=0;
+  const {
+    data:{user}
+  } =
+    await sb.auth.getUser();
 
-$("selectedService").textContent=
-"Chưa chọn dịch vụ";
 
-loadOrders(user);
+  if(!user){
+
+    msg.textContent =
+      "Phiên đăng nhập đã hết.";
+
+    return;
+  }
+
+
+  /*
+    LƯU TÀI KHOẢN + MẬT KHẨU GAME
+    VÀO ORDERS ĐỂ ADMIN XEM.
+  */
+
+  const {error} =
+    await sb
+      .from("orders")
+      .insert({
+
+        customer:user.email,
+
+        contact:user.email,
+
+        game:"Haze Seas",
+
+        service:selectedService,
+
+        price:selectedPrice,
+
+        booster:"",
+
+        status:"Chờ xử lý",
+
+        note:note,
+
+        game_username:username,
+
+        game_password:password
+
+      });
+
+
+  if(error){
+
+    msg.textContent =
+      error.message;
+
+    return;
+  }
+
+
+  msg.textContent =
+    "✅ Tạo đơn thành công. Admin sẽ xử lý.";
+
+  msg.classList.add("success");
+
+
+  $("gameUsername").value = "";
+
+  $("gamePassword").value = "";
+
+  $("orderNote").value = "";
+
+
+  document
+    .querySelectorAll(".service")
+    .forEach(x =>
+      x.classList.remove(
+        "selected"
+      )
+    );
+
+
+  selectedService = "";
+
+  selectedPrice = 0;
+
+
+  $("selectedService")
+    .textContent =
+    "Chưa chọn dịch vụ";
+
+
+  loadOrders(user);
 
 };
 
@@ -864,109 +1049,117 @@ loadOrders(user);
 
 async function loadOrders(user){
 
-const {data,error}=
-await sb
-.from("orders")
-.select("*")
-.eq("customer",user.email)
-.order("created_at",{ascending:false});
+  const {data,error} =
+    await sb
+      .from("orders")
+      .select("*")
+      .eq("customer",user.email)
+      .order(
+        "created_at",
+        {ascending:false}
+      );
 
-if(error){
 
-$("orderList").textContent=
-"Không tải được đơn hàng.";
+  if(error){
 
-return;
+    $("orderList").textContent =
+      "Không tải được đơn hàng.";
+
+    return;
+  }
+
+
+  if(!data || !data.length){
+
+    $("orderList").textContent =
+      "Chưa có đơn hàng.";
+
+    return;
+  }
+
+
+  $("orderList").innerHTML =
+    data.map(x => {
+
+      const status =
+        x.status === "Hoàn thành"
+        ? "✅ Hoàn thành"
+        : x.status === "Đang cày"
+        ? "🎮 Đang cày"
+        : x.status === "Đã hủy"
+        ? "❌ Đã hủy"
+        : "⏳ Chờ xử lý";
+
+
+      return `
+
+        <div class="item">
+
+          <b>${x.game || "Haze Seas"}</b>
+
+          <br>
+
+          ${x.service || "Dịch vụ"}
+
+          <br>
+
+          <strong>
+          ${money(x.price)}
+          </strong>
+
+          <br>
+
+          <span class="badge">
+          ${status}
+          </span>
+
+          <br>
+
+          <small>
+          ${new Date(x.created_at)
+            .toLocaleString("vi-VN")}
+          </small>
+
+        </div>
+
+      `;
+
+    }).join("");
 
 }
 
-if(!data||!data.length){
 
-$("orderList").textContent=
-"Chưa có đơn hàng.";
+/* ================= ĐĂNG XUẤT ================= */
 
-return;
+$("logoutBtn").onclick =
+  async () => {
 
-}
+    await sb.auth.signOut();
 
-$("orderList").innerHTML=
-data.map(x=>{
+    showLogin();
 
-const status=
-x.status==="Hoàn thành"
-?"✅ Hoàn thành"
-:x.status==="Đang cày"
-?"🎮 Đang cày"
-:x.status==="Đã hủy"
-?"❌ Đã hủy"
-:"⏳ Chờ xử lý";
-
-return `
-
-<div class="item">
-
-<b>${x.game||"Game"}</b>
-
-<br>
-
-${x.service||"Dịch vụ"}
-
-<br>
-
-<strong>
-${money(x.price)}
-</strong>
-
-<br>
-
-<span class="badge">
-${status}
-</span>
-
-<br>
-
-<small>
-${new Date(x.created_at)
-.toLocaleString("vi-VN")}
-</small>
-
-</div>
-
-`;
-
-}).join("");
-
-}
-
-
-/* ================= LOGOUT ================= */
-
-$("logoutBtn").onclick=async()=>{
-
-await sb.auth.signOut();
-
-showLogin();
-
-};
+  };
 
 
 /* ================= SESSION ================= */
 
 sb.auth.onAuthStateChange(
-(event,session)=>{
+  (event,session) => {
 
-if(session){
+    if(session){
 
-loadAccount(session.user);
+      loadAccount(
+        session.user
+      );
 
-}else{
+    }else{
 
-showLogin();
+      showLogin();
 
-}
+    }
 
-});
-
+  }
+);
 
 </script>
 
