@@ -4,78 +4,127 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cày Thuê - Khách hàng</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#f5f7fb;
-  color:#222
+  color:#222;
 }
+
 .box{
   width:min(440px,92%);
   margin:30px auto;
   background:#fff;
   padding:24px;
   border-radius:16px;
-  box-shadow:0 8px 30px #0001
+  box-shadow:0 8px 30px #0001;
 }
+
 h1{text-align:center}
+
+h3{
+  margin-top:0;
+}
+
 input,button{
   width:100%;
   padding:13px;
   margin-top:10px;
   border-radius:9px;
   border:1px solid #ddd;
-  font-size:15px
+  font-size:15px;
 }
+
 button{
   border:0;
   background:#111827;
   color:#fff;
-  cursor:pointer
+  cursor:pointer;
 }
-.hidden{display:none}
+
+button:hover{
+  opacity:.9;
+}
+
+.hidden{
+  display:none;
+}
+
 .wallet{
   background:#eef2ff;
   padding:18px;
   border-radius:12px;
-  margin:15px 0
+  margin:15px 0;
 }
+
 .balance{
   font-size:28px;
   font-weight:bold;
-  margin-top:6px
+  margin-top:6px;
 }
+
 .card{
   background:#f8fafc;
   padding:16px;
   border-radius:12px;
-  margin-top:15px
+  margin-top:15px;
 }
+
 .msg{
   margin-top:12px;
   font-size:14px;
-  color:#d00
+  color:#d00;
 }
-.success{color:#15803d}
+
+.success{
+  color:#15803d;
+}
+
 .switch{
   background:none;
   color:#2563eb;
-  margin-top:8px
+  margin-top:8px;
 }
+
 .deposit{
-  background:#16a34a
+  background:#16a34a;
 }
+
 .logout{
-  background:#dc2626
+  background:#dc2626;
 }
+
 .item{
   padding:10px 0;
   border-bottom:1px solid #eee;
-  font-size:14px
+  font-size:14px;
+}
+
+.label{
+  display:block;
+  margin-top:12px;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.bank-info{
+  background:#ecfdf5;
+  border:1px solid #bbf7d0;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:12px;
+}
+
+.bank-info b{
+  display:block;
+  margin-top:4px;
+  font-size:18px;
 }
 </style>
 </head>
@@ -84,34 +133,72 @@ button{
 
 <div class="box">
 
-<!-- ĐĂNG NHẬP -->
+<!-- ================= ĐĂNG NHẬP ================= -->
+
 <section id="loginBox">
+
 <h1>Đăng nhập</h1>
 
-<input id="loginEmail" type="email" placeholder="Email">
-<input id="loginPassword" type="password" placeholder="Mật khẩu">
+<input
+  id="loginEmail"
+  type="email"
+  placeholder="Email"
+>
 
-<button id="loginBtn">Đăng nhập</button>
-<button class="switch" id="showRegister">
+<input
+  id="loginPassword"
+  type="password"
+  placeholder="Mật khẩu"
+>
+
+<button id="loginBtn">
+Đăng nhập
+</button>
+
+<button
+  class="switch"
+  id="showRegister">
 Chưa có tài khoản? Đăng ký
 </button>
 
 <div id="loginMsg" class="msg"></div>
+
 </section>
 
 
-<!-- ĐĂNG KÝ -->
-<section id="registerBox" class="hidden">
+<!-- ================= ĐĂNG KÝ ================= -->
+
+<section
+  id="registerBox"
+  class="hidden">
 
 <h1>Đăng ký</h1>
 
-<input id="registerName" type="text" placeholder="Họ tên">
-<input id="registerEmail" type="email" placeholder="Email">
-<input id="registerPassword" type="password" placeholder="Mật khẩu">
+<input
+  id="registerName"
+  type="text"
+  placeholder="Họ tên"
+>
 
-<button id="registerBtn">Tạo tài khoản</button>
+<input
+  id="registerEmail"
+  type="email"
+  placeholder="Email"
+>
 
-<button class="switch" id="showLogin">
+<input
+  id="registerPassword"
+  type="password"
+  placeholder="Mật khẩu"
+>
+
+<button id="registerBtn">
+Tạo tài khoản
+</button>
+
+<button
+  class="switch"
+  id="showLogin">
 Đã có tài khoản? Đăng nhập
 </button>
 
@@ -120,53 +207,114 @@ Chưa có tài khoản? Đăng ký
 </section>
 
 
-<!-- TÀI KHOẢN -->
-<section id="accountBox" class="hidden">
+<!-- ================= TÀI KHOẢN ================= -->
+
+<section
+  id="accountBox"
+  class="hidden">
 
 <h1>Tài khoản</h1>
 
 <p>Email:</p>
+
 <b id="userEmail"></b>
 
+
+<!-- SỐ DƯ -->
+
 <div class="wallet">
+
 <div>Số dư</div>
-<div class="balance" id="balance">0đ</div>
+
+<div
+  class="balance"
+  id="balance">
+0đ
+</div>
+
 </div>
 
 
-<!-- NẠP TIỀN -->
+<!-- ================= NẠP TIỀN ================= -->
+
 <div class="card">
 
 <h3>💰 Nạp tiền</h3>
 
-<p>Nhập số tiền bạn muốn nạp:</p>
+<div class="bank-info">
 
-<input
-id="depositAmount"
-type="number"
-min="1000"
-placeholder="Ví dụ: 50000">
+<div>
+Tài khoản nhận tiền
+</div>
 
-<input
-id="transferCode"
-type="text"
-placeholder="Mã giao dịch / nội dung chuyển khoản">
-
-<input
-id="depositNote"
-type="text"
-placeholder="Ghi chú (không bắt buộc)">
-
-<button class="deposit" id="depositBtn">
-Gửi yêu cầu nạp tiền
-</button>
-
-<div id="depositMsg" class="msg"></div>
+<b id="myBankAccount">
+Chưa thiết lập
+</b>
 
 </div>
 
 
-<!-- LỊCH SỬ NẠP -->
+<label class="label">
+Dòng 1 — Số tiền
+</label>
+
+<input
+  id="depositAmount"
+  type="number"
+  min="1000"
+  placeholder="Ví dụ: 50000"
+>
+
+
+<label class="label">
+Dòng 2 — Số tài khoản của bạn
+</label>
+
+<input
+  id="bankAccount"
+  type="text"
+  placeholder="Số tài khoản ngân hàng nhận tiền"
+>
+
+
+<label class="label">
+Dòng 3 — Tên tài khoản khách hàng
+</label>
+
+<input
+  id="customerAccountName"
+  type="text"
+  placeholder="Tên tài khoản khách hàng"
+>
+
+
+<label class="label">
+Mã giao dịch / nội dung chuyển khoản
+</label>
+
+<input
+  id="transferCode"
+  type="text"
+  placeholder="Ví dụ: NAP123456"
+>
+
+
+<button
+  class="deposit"
+  id="depositBtn">
+Gửi yêu cầu nạp tiền
+</button>
+
+<div
+  id="depositMsg"
+  class="msg">
+</div>
+
+</div>
+
+
+<!-- ================= LỊCH SỬ NẠP ================= -->
+
 <div class="card">
 
 <h3>📋 Lịch sử nạp tiền</h3>
@@ -178,7 +326,9 @@ Chưa có giao dịch
 </div>
 
 
-<button class="logout" id="logoutBtn">
+<button
+  class="logout"
+  id="logoutBtn">
 Đăng xuất
 </button>
 
@@ -196,60 +346,96 @@ const sb = supabase.createClient(
   window.SUPABASE_KEY
 );
 
-const $ = id => document.getElementById(id);
+const $ = id =>
+  document.getElementById(id);
+
+
+/* ================= TIỀN ================= */
 
 function money(n){
+
   return new Intl.NumberFormat("vi-VN")
     .format(n || 0) + "đ";
+
 }
 
 
+/* ================= HIỂN THỊ ================= */
+
 function showLogin(){
 
-  $("loginBox").classList.remove("hidden");
-  $("registerBox").classList.add("hidden");
-  $("accountBox").classList.add("hidden");
+  $("loginBox")
+    .classList.remove("hidden");
+
+  $("registerBox")
+    .classList.add("hidden");
+
+  $("accountBox")
+    .classList.add("hidden");
 
 }
 
 
 function showRegister(){
 
-  $("loginBox").classList.add("hidden");
-  $("registerBox").classList.remove("hidden");
-  $("accountBox").classList.add("hidden");
+  $("loginBox")
+    .classList.add("hidden");
+
+  $("registerBox")
+    .classList.remove("hidden");
+
+  $("accountBox")
+    .classList.add("hidden");
 
 }
 
 
 function showAccount(){
 
-  $("loginBox").classList.add("hidden");
-  $("registerBox").classList.add("hidden");
-  $("accountBox").classList.remove("hidden");
+  $("loginBox")
+    .classList.add("hidden");
+
+  $("registerBox")
+    .classList.add("hidden");
+
+  $("accountBox")
+    .classList.remove("hidden");
 
 }
 
 
-$("showRegister").onclick = showRegister;
-$("showLogin").onclick = showLogin;
+$("showRegister").onclick =
+  showRegister;
+
+$("showLogin").onclick =
+  showLogin;
 
 
-/* ĐĂNG KÝ */
+/* ================= ĐĂNG KÝ ================= */
 
-$("registerBtn").onclick = async () => {
+$("registerBtn").onclick =
+async () => {
 
   $("registerMsg").textContent =
     "Đang tạo tài khoản...";
 
+
   const name =
-    $("registerName").value.trim();
+    $("registerName")
+      .value
+      .trim();
+
 
   const email =
-    $("registerEmail").value.trim();
+    $("registerEmail")
+      .value
+      .trim();
+
 
   const password =
-    $("registerPassword").value;
+    $("registerPassword")
+      .value;
+
 
   if(!name || !email || !password){
 
@@ -257,7 +443,9 @@ $("registerBtn").onclick = async () => {
       "Vui lòng nhập đầy đủ thông tin.";
 
     return;
+
   }
+
 
   if(password.length < 6){
 
@@ -265,13 +453,21 @@ $("registerBtn").onclick = async () => {
       "Mật khẩu phải có ít nhất 6 ký tự.";
 
     return;
+
   }
 
-  const {data,error} =
+
+  const {
+    data,
+    error
+  } =
     await sb.auth.signUp({
+
       email,
       password
+
     });
+
 
   if(error){
 
@@ -279,45 +475,86 @@ $("registerBtn").onclick = async () => {
       error.message;
 
     return;
+
   }
+
 
   if(data.user){
 
-    await sb.from("profiles")
-      .update({
-        full_name:name,
-        email:email
-      })
-      .eq("id",data.user.id);
+    const {
+      error:profileError
+    } =
+      await sb
+        .from("profiles")
+        .update({
+
+          full_name:name,
+          email:email
+
+        })
+        .eq(
+          "id",
+          data.user.id
+        );
+
+
+    if(profileError){
+
+      console.error(
+        profileError
+      );
+
+    }
 
   }
 
-  $("registerMsg").textContent =
-    "Đăng ký thành công.";
 
-  setTimeout(showLogin,1000);
+  $("registerMsg").textContent =
+    "Đăng ký thành công. Bạn có thể đăng nhập.";
+
+  $("registerMsg")
+    .classList.add("success");
+
+
+  setTimeout(
+    showLogin,
+    1000
+  );
 
 };
 
 
-/* ĐĂNG NHẬP */
+/* ================= ĐĂNG NHẬP ================= */
 
-$("loginBtn").onclick = async () => {
+$("loginBtn").onclick =
+async () => {
 
   $("loginMsg").textContent =
     "Đang đăng nhập...";
 
+
   const email =
-    $("loginEmail").value.trim();
+    $("loginEmail")
+      .value
+      .trim();
+
 
   const password =
-    $("loginPassword").value;
+    $("loginPassword")
+      .value;
 
-  const {data,error} =
+
+  const {
+    data,
+    error
+  } =
     await sb.auth.signInWithPassword({
+
       email,
       password
+
     });
+
 
   if(error){
 
@@ -325,28 +562,41 @@ $("loginBtn").onclick = async () => {
       error.message;
 
     return;
+
   }
 
-  await loadAccount(data.user);
+
+  await loadAccount(
+    data.user
+  );
 
 };
 
 
-/* TẢI TÀI KHOẢN */
+/* ================= TẢI TÀI KHOẢN ================= */
 
 async function loadAccount(user){
 
   showAccount();
 
+
   $("userEmail").textContent =
     user.email;
 
-  const {data,error} =
+
+  const {
+    data,
+    error
+  } =
     await sb
       .from("wallets")
       .select("balance")
-      .eq("user_id",user.id)
+      .eq(
+        "user_id",
+        user.id
+      )
       .single();
+
 
   if(error){
 
@@ -360,98 +610,181 @@ async function loadAccount(user){
 
   }
 
+
   loadDeposits(user);
 
 }
 
 
-/* GỬI YÊU CẦU NẠP */
+/* ================= GỬI YÊU CẦU NẠP ================= */
 
-$("depositBtn").onclick = async () => {
+$("depositBtn").onclick =
+async () => {
 
-  $("depositMsg").textContent =
+  const msg =
+    $("depositMsg");
+
+
+  msg.textContent =
     "Đang gửi yêu cầu...";
 
-  $("depositMsg").classList.remove("success");
+
+  msg.classList.remove(
+    "success"
+  );
+
 
   const amount =
-    Number($("depositAmount").value);
+    Number(
+      $("depositAmount").value
+    );
+
+
+  const bankAccount =
+    $("bankAccount")
+      .value
+      .trim();
+
+
+  const customerAccountName =
+    $("customerAccountName")
+      .value
+      .trim();
+
 
   const transferCode =
-    $("transferCode").value.trim();
-
-  const note =
-    $("depositNote").value.trim();
+    $("transferCode")
+      .value
+      .trim();
 
 
   if(!amount || amount < 1000){
 
-    $("depositMsg").textContent =
+    msg.textContent =
       "Số tiền tối thiểu là 1.000đ.";
 
     return;
+
   }
 
 
-  const {data:{user}} =
+  if(!bankAccount){
+
+    msg.textContent =
+      "Vui lòng nhập số tài khoản.";
+
+    return;
+
+  }
+
+
+  if(!customerAccountName){
+
+    msg.textContent =
+      "Vui lòng nhập tên tài khoản khách hàng.";
+
+    return;
+
+  }
+
+
+  const {
+    data:{
+      user
+    }
+  } =
     await sb.auth.getUser();
 
 
   if(!user){
 
-    $("depositMsg").textContent =
+    msg.textContent =
       "Phiên đăng nhập đã hết.";
 
     return;
+
   }
 
 
-  const {error} =
+  const {
+    error
+  } =
     await sb
       .from("deposit_requests")
       .insert({
 
         user_id:user.id,
+
         amount:amount,
+
         transfer_code:transferCode,
-        note:note
+
+        note:
+          "STK nhận tiền: " +
+          bankAccount +
+          " | Tên tài khoản khách: " +
+          customerAccountName
 
       });
 
 
   if(error){
 
-    $("depositMsg").textContent =
+    msg.textContent =
       error.message;
 
     return;
+
   }
 
 
-  $("depositMsg").textContent =
+  msg.textContent =
     "Đã gửi yêu cầu. Chờ Admin duyệt.";
 
-  $("depositMsg").classList.add("success");
+  msg.classList.add(
+    "success"
+  );
 
-  $("depositAmount").value="";
-  $("transferCode").value="";
-  $("depositNote").value="";
+
+  $("depositAmount").value =
+    "";
+
+  $("bankAccount").value =
+    "";
+
+  $("customerAccountName").value =
+    "";
+
+  $("transferCode").value =
+    "";
+
 
   loadDeposits(user);
 
 };
 
 
-/* LỊCH SỬ */
+/* ================= LỊCH SỬ ================= */
 
 async function loadDeposits(user){
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await sb
       .from("deposit_requests")
       .select("*")
-      .eq("user_id",user.id)
-      .order("created_at",{ascending:false});
+      .eq(
+        "user_id",
+        user.id
+      )
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
 
 
   if(error){
@@ -460,15 +793,17 @@ async function loadDeposits(user){
       "Không tải được lịch sử.";
 
     return;
+
   }
 
 
-  if(!data.length){
+  if(!data || !data.length){
 
     $("depositList").textContent =
       "Chưa có giao dịch.";
 
     return;
+
   }
 
 
@@ -482,16 +817,36 @@ async function loadDeposits(user){
         ? "❌ Từ chối"
         : "⏳ Chờ duyệt";
 
+
       return `
+
         <div class="item">
-          <b>${money(x.amount)}</b>
+
+          <b>
+            ${money(x.amount)}
+          </b>
+
           <br>
+
           ${status}
+
           <br>
+
           <small>
-            ${new Date(x.created_at).toLocaleString("vi-VN")}
+            ${new Date(
+              x.created_at
+            ).toLocaleString("vi-VN")}
           </small>
+
+          <br>
+
+          <small>
+            Mã giao dịch:
+            ${x.transfer_code || "—"}
+          </small>
+
         </div>
+
       `;
 
     }).join("");
@@ -499,9 +854,10 @@ async function loadDeposits(user){
 }
 
 
-/* ĐĂNG XUẤT */
+/* ================= ĐĂNG XUẤT ================= */
 
-$("logoutBtn").onclick = async () => {
+$("logoutBtn").onclick =
+async () => {
 
   await sb.auth.signOut();
 
@@ -510,14 +866,16 @@ $("logoutBtn").onclick = async () => {
 };
 
 
-/* KIỂM TRA SESSION */
+/* ================= SESSION ================= */
 
 sb.auth.onAuthStateChange(
   (event,session) => {
 
     if(session){
 
-      loadAccount(session.user);
+      loadAccount(
+        session.user
+      );
 
     }else{
 
