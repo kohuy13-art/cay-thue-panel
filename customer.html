@@ -116,9 +116,9 @@ button:hover{
 .bank-info{
   background:#ecfdf5;
   border:1px solid #bbf7d0;
-  padding:12px;
+  padding:14px;
   border-radius:10px;
-  margin-bottom:12px;
+  margin-bottom:15px;
 }
 
 .bank-info b{
@@ -220,7 +220,7 @@ Tạo tài khoản
 <b id="userEmail"></b>
 
 
-<!-- SỐ DƯ -->
+<!-- ================= SỐ DƯ ================= -->
 
 <div class="wallet">
 
@@ -241,21 +241,35 @@ Tạo tài khoản
 
 <h3>💰 Nạp tiền</h3>
 
+
+<!-- TÀI KHOẢN NHẬN TIỀN -->
+
 <div class="bank-info">
 
 <div>
-Tài khoản nhận tiền
+🏦 Ngân hàng nhận tiền
 </div>
 
-<b id="myBankAccount">
-Chưa thiết lập
+<b>
+VietinBank
+</b>
+
+
+<div style="margin-top:10px">
+Số tài khoản
+</div>
+
+<b>
+0942180769
 </b>
 
 </div>
 
 
+<!-- SỐ TIỀN -->
+
 <label class="label">
-Dòng 1 — Số tiền
+Số tiền muốn nạp
 </label>
 
 <input
@@ -266,27 +280,20 @@ Dòng 1 — Số tiền
 >
 
 
-<label class="label">
-Dòng 2 — Số tài khoản của bạn
-</label>
-
-<input
-  id="bankAccount"
-  type="text"
-  placeholder="Số tài khoản ngân hàng nhận tiền"
->
-
+<!-- TÊN KHÁCH -->
 
 <label class="label">
-Dòng 3 — Tên tài khoản khách hàng
+Tên tài khoản khách hàng
 </label>
 
 <input
   id="customerAccountName"
   type="text"
-  placeholder="Tên tài khoản khách hàng"
+  placeholder="Nhập tên tài khoản của bạn"
 >
 
+
+<!-- MÃ GIAO DỊCH -->
 
 <label class="label">
 Mã giao dịch / nội dung chuyển khoản
@@ -326,6 +333,8 @@ Chưa có giao dịch
 </div>
 
 
+<!-- ================= ĐĂNG XUẤT ================= -->
+
 <button
   class="logout"
   id="logoutBtn">
@@ -350,7 +359,7 @@ const $ = id =>
   document.getElementById(id);
 
 
-/* ================= TIỀN ================= */
+/* ================= ĐỊNH DẠNG TIỀN ================= */
 
 function money(n){
 
@@ -360,52 +369,44 @@ function money(n){
 }
 
 
-/* ================= HIỂN THỊ ================= */
+/* ================= CHUYỂN TRANG ================= */
 
 function showLogin(){
 
-  $("loginBox")
-    .classList.remove("hidden");
+  $("loginBox").classList.remove("hidden");
 
-  $("registerBox")
-    .classList.add("hidden");
+  $("registerBox").classList.add("hidden");
 
-  $("accountBox")
-    .classList.add("hidden");
+  $("accountBox").classList.add("hidden");
 
 }
 
 
 function showRegister(){
 
-  $("loginBox")
-    .classList.add("hidden");
+  $("loginBox").classList.add("hidden");
 
-  $("registerBox")
-    .classList.remove("hidden");
+  $("registerBox").classList.remove("hidden");
 
-  $("accountBox")
-    .classList.add("hidden");
+  $("accountBox").classList.add("hidden");
 
 }
 
 
 function showAccount(){
 
-  $("loginBox")
-    .classList.add("hidden");
+  $("loginBox").classList.add("hidden");
 
-  $("registerBox")
-    .classList.add("hidden");
+  $("registerBox").classList.add("hidden");
 
-  $("accountBox")
-    .classList.remove("hidden");
+  $("accountBox").classList.remove("hidden");
 
 }
 
 
 $("showRegister").onclick =
   showRegister;
+
 
 $("showLogin").onclick =
   showLogin;
@@ -418,6 +419,8 @@ async () => {
 
   $("registerMsg").textContent =
     "Đang tạo tài khoản...";
+
+  $("registerMsg").classList.remove("success");
 
 
   const name =
@@ -640,12 +643,6 @@ async () => {
     );
 
 
-  const bankAccount =
-    $("bankAccount")
-      .value
-      .trim();
-
-
   const customerAccountName =
     $("customerAccountName")
       .value
@@ -668,20 +665,20 @@ async () => {
   }
 
 
-  if(!bankAccount){
+  if(!customerAccountName){
 
     msg.textContent =
-      "Vui lòng nhập số tài khoản.";
+      "Vui lòng nhập tên tài khoản khách hàng.";
 
     return;
 
   }
 
 
-  if(!customerAccountName){
+  if(!transferCode){
 
     msg.textContent =
-      "Vui lòng nhập tên tài khoản khách hàng.";
+      "Vui lòng nhập mã giao dịch hoặc nội dung chuyển khoản.";
 
     return;
 
@@ -706,6 +703,18 @@ async () => {
   }
 
 
+  /*
+    Tài khoản nhận tiền cố định:
+    VietinBank - 0942180769
+  */
+
+  const note =
+    "Ngân hàng: VietinBank" +
+    " | STK nhận tiền: 0942180769" +
+    " | Tên tài khoản khách: " +
+    customerAccountName;
+
+
   const {
     error
   } =
@@ -719,11 +728,7 @@ async () => {
 
         transfer_code:transferCode,
 
-        note:
-          "STK nhận tiền: " +
-          bankAccount +
-          " | Tên tài khoản khách: " +
-          customerAccountName
+        note:note
 
       });
 
@@ -749,9 +754,6 @@ async () => {
   $("depositAmount").value =
     "";
 
-  $("bankAccount").value =
-    "";
-
   $("customerAccountName").value =
     "";
 
@@ -764,7 +766,7 @@ async () => {
 };
 
 
-/* ================= LỊCH SỬ ================= */
+/* ================= LỊCH SỬ NẠP ================= */
 
 async function loadDeposits(user){
 
@@ -866,7 +868,7 @@ async () => {
 };
 
 
-/* ================= SESSION ================= */
+/* ================= KIỂM TRA SESSION ================= */
 
 sb.auth.onAuthStateChange(
   (event,session) => {
