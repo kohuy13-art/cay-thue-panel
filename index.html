@@ -43,14 +43,24 @@
     }
 
     .table table{
-      min-width:900px;
+      min-width:1000px;
+    }
+
+    .game-account-btn{
+      background:#2563eb;
+      color:white;
+      border:0;
+      padding:7px 10px;
+      border-radius:7px;
+      cursor:pointer;
+      margin-bottom:5px;
     }
   </style>
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 
 <div id="login" class="login">
 
@@ -91,7 +101,7 @@
 </div>
 
 
-<!-- ================= APP ================= -->
+<!-- APP -->
 
 <div id="app" class="hidden">
 
@@ -138,7 +148,7 @@
   </aside>
 
 
-  <!-- ================= MAIN ================= -->
+  <!-- MAIN -->
 
   <main>
 
@@ -165,7 +175,7 @@
     </header>
 
 
-    <!-- ================= DASHBOARD ================= -->
+    <!-- DASHBOARD -->
 
     <section
       id="dashboard"
@@ -198,9 +208,7 @@
 
       <div class="box">
 
-        <h2>
-          Đơn gần đây
-        </h2>
+        <h2>Đơn gần đây</h2>
 
         <div id="recent">
           Chưa có đơn
@@ -211,7 +219,7 @@
     </section>
 
 
-    <!-- ================= ORDERS ================= -->
+    <!-- ORDERS -->
 
     <section
       id="orders"
@@ -266,7 +274,8 @@
               <th>Giá</th>
               <th>Trạng thái</th>
               <th>Người cày</th>
-              <th></th>
+              <th>Tài khoản game</th>
+              <th>Thao tác</th>
 
             </tr>
 
@@ -281,7 +290,7 @@
     </section>
 
 
-    <!-- ================= CUSTOMERS ================= -->
+    <!-- CUSTOMERS -->
 
     <section
       id="customers"
@@ -317,7 +326,7 @@
     </section>
 
 
-    <!-- ================= DEPOSITS ================= -->
+    <!-- DEPOSITS -->
 
     <section
       id="deposits"
@@ -377,7 +386,7 @@
     </section>
 
 
-    <!-- ================= BOOSTERS ================= -->
+    <!-- BOOSTERS -->
 
     <section
       id="boosters"
@@ -401,7 +410,7 @@
 </div>
 
 
-<!-- ================= ORDER MODAL ================= -->
+<!-- ORDER MODAL -->
 
 <div
   class="modal"
@@ -427,19 +436,16 @@
         id="oid"
       >
 
-
       <input
         id="customer"
         placeholder="Khách hàng"
         required
       >
 
-
       <input
         id="contact"
         placeholder="Liên hệ"
       >
-
 
       <input
         id="game"
@@ -447,13 +453,11 @@
         required
       >
 
-
       <input
         id="service"
         placeholder="Dịch vụ"
         required
       >
-
 
       <input
         id="price"
@@ -462,12 +466,10 @@
         required
       >
 
-
       <input
         id="booster"
         placeholder="Người cày"
       >
-
 
       <select id="status">
 
@@ -489,12 +491,10 @@
 
       </select>
 
-
       <textarea
         id="note"
         placeholder="Ghi chú">
       </textarea>
-
 
       <button
         class="add"
@@ -509,7 +509,7 @@
 </div>
 
 
-<!-- ================= BOOSTER MODAL ================= -->
+<!-- BOOSTER MODAL -->
 
 <div
   class="modal"
@@ -536,19 +536,16 @@
         required
       >
 
-
       <input
         id="bg"
         placeholder="Game"
         required
       >
 
-
       <input
         id="bc"
         placeholder="Liên hệ"
       >
-
 
       <button
         class="add"
@@ -563,11 +560,15 @@
 </div>
 
 
-<!-- ================= SCRIPTS ================= -->
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<!-- CONFIG -->
+
 <script src="config.js"></script>
+
+<!-- ADMIN APP -->
 
 <script src="app.js"></script>
 
