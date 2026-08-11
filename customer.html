@@ -4,16 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cày Thuê - Khách hàng</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box
+}
+
 body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#f5f7fb;
   color:#222
 }
+
 .box{
   width:min(460px,92%);
   margin:25px auto;
@@ -22,7 +27,11 @@ body{
   border-radius:16px;
   box-shadow:0 8px 30px #0001
 }
-h1{text-align:center}
+
+h1{
+  text-align:center
+}
+
 input,select,textarea,button{
   width:100%;
   padding:13px;
@@ -31,47 +40,70 @@ input,select,textarea,button{
   border:1px solid #ddd;
   font-size:15px
 }
+
 textarea{
   min-height:80px;
   resize:vertical
 }
+
 button{
   border:0;
   background:#111827;
   color:#fff;
   cursor:pointer
 }
-.hidden{display:none}
+
+.hidden{
+  display:none
+}
+
 .wallet{
   background:#eef2ff;
   padding:18px;
   border-radius:12px;
   margin:15px 0
 }
+
 .balance{
   font-size:28px;
   font-weight:bold;
   margin-top:6px
 }
+
 .card{
   background:#f8fafc;
   padding:16px;
   border-radius:12px;
   margin-top:15px
 }
+
 .msg{
   margin-top:12px;
   font-size:14px;
   color:#d00
 }
-.success{color:#15803d}
+
+.success{
+  color:#15803d
+}
+
 .switch{
   background:none;
   color:#2563eb
 }
-.deposit{background:#16a34a}
-.orderBtn{background:#2563eb}
-.logout{background:#dc2626}
+
+.deposit{
+  background:#16a34a
+}
+
+.orderBtn{
+  background:#2563eb
+}
+
+.logout{
+  background:#dc2626
+}
+
 .bank-info{
   background:#ecfdf5;
   border:1px solid #bbf7d0;
@@ -79,11 +111,13 @@ button{
   border-radius:10px;
   margin-bottom:15px
 }
+
 .bank-info b{
   display:block;
   margin-top:4px;
   font-size:18px
 }
+
 .service{
   border:1px solid #ddd;
   background:white;
@@ -92,28 +126,34 @@ button{
   margin-top:10px;
   cursor:pointer
 }
+
 .service.selected{
   border:2px solid #2563eb;
   background:#eff6ff
 }
+
 .service-title{
   font-weight:bold;
   font-size:16px
 }
+
 .price{
   font-weight:bold;
   margin-top:7px
 }
+
 .time{
   color:#666;
   font-size:13px;
   margin-top:5px
 }
+
 .item{
   padding:12px 0;
   border-bottom:1px solid #eee;
   font-size:14px
 }
+
 .badge{
   display:inline-block;
   padding:4px 8px;
@@ -121,12 +161,14 @@ button{
   background:#fef3c7;
   font-size:12px
 }
+
 .label{
   display:block;
   margin-top:12px;
   font-weight:bold;
   font-size:14px
 }
+
 .warning{
   background:#fff7ed;
   border:1px solid #fed7aa;
@@ -151,12 +193,16 @@ button{
 <input
 id="loginEmail"
 type="email"
-placeholder="Email">
+placeholder="Email"
+autocomplete="email"
+>
 
 <input
 id="loginPassword"
 type="password"
-placeholder="Mật khẩu">
+placeholder="Mật khẩu"
+autocomplete="current-password"
+>
 
 <button id="loginBtn">
 Đăng nhập
@@ -182,17 +228,22 @@ Chưa có tài khoản? Đăng ký
 <input
 id="registerName"
 type="text"
-placeholder="Họ tên">
+placeholder="Họ tên"
+>
 
 <input
 id="registerEmail"
 type="email"
-placeholder="Email">
+placeholder="Email"
+autocomplete="email"
+>
 
 <input
 id="registerPassword"
 type="password"
-placeholder="Mật khẩu">
+placeholder="Mật khẩu"
+autocomplete="new-password"
+>
 
 <button id="registerBtn">
 Tạo tài khoản
@@ -216,10 +267,11 @@ id="showLogin">
 <h1>👤 Tài khoản</h1>
 
 <p>Email:</p>
+
 <b id="userEmail"></b>
 
 
-<!-- SỐ DƯ -->
+<!-- ================= SỐ DƯ ================= -->
 
 <div class="wallet">
 
@@ -263,7 +315,8 @@ Số tiền muốn nạp
 id="depositAmount"
 type="number"
 min="1000"
-placeholder="Ví dụ: 50000">
+placeholder="Ví dụ: 50000"
+>
 
 
 <label class="label">
@@ -273,7 +326,8 @@ Tên tài khoản khách hàng
 <input
 id="customerAccountName"
 type="text"
-placeholder="Tên tài khoản khách hàng">
+placeholder="Tên tài khoản khách hàng"
+>
 
 
 <label class="label">
@@ -283,7 +337,8 @@ Mã giao dịch / nội dung chuyển khoản
 <input
 id="transferCode"
 type="text"
-placeholder="Ví dụ: NAP123456">
+placeholder="Ví dụ: NAP123456"
+>
 
 
 <button
@@ -292,7 +347,23 @@ id="depositBtn">
 Gửi yêu cầu nạp tiền
 </button>
 
-<div id="depositMsg" class="msg"></div>
+<div
+id="depositMsg"
+class="msg">
+</div>
+
+</div>
+
+
+<!-- ================= LỊCH SỬ NẠP ================= -->
+
+<div class="card">
+
+<h3>💳 Lịch sử nạp tiền</h3>
+
+<div id="depositList">
+Chưa có giao dịch.
+</div>
 
 </div>
 
@@ -311,7 +382,8 @@ Gửi yêu cầu nạp tiền
 <div
 class="service"
 data-service="Cày LV 1–4800"
-data-price="50000">
+data-price="50000"
+>
 
 <div class="service-title">
 🎮 Haze Seas — Cày LV 1–4800
@@ -333,7 +405,8 @@ data-price="50000">
 <div
 class="service"
 data-service="Lấy D.Clan"
-data-price="200000">
+data-price="200000"
+>
 
 <div class="service-title">
 🏆 Haze Seas — Lấy D.Clan
@@ -352,12 +425,13 @@ data-price="200000">
 
 <div
 id="selectedService"
-style="margin-top:12px;font-weight:bold">
+style="margin-top:12px;font-weight:bold"
+>
 Chưa chọn dịch vụ
 </div>
 
 
-<!-- TÀI KHOẢN GAME -->
+<!-- ================= TÀI KHOẢN GAME ================= -->
 
 <label class="label">
 Tài khoản game
@@ -366,10 +440,12 @@ Tài khoản game
 <input
 id="gameUsername"
 type="text"
-placeholder="Nhập tài khoản game">
+placeholder="Nhập tài khoản game"
+autocomplete="off"
+>
 
 
-<!-- MẬT KHẨU GAME -->
+<!-- ================= MẬT KHẨU GAME ================= -->
 
 <label class="label">
 Mật khẩu game
@@ -378,10 +454,12 @@ Mật khẩu game
 <input
 id="gamePassword"
 type="password"
-placeholder="Nhập mật khẩu game">
+placeholder="Nhập mật khẩu game"
+autocomplete="off"
+>
 
 
-<!-- GHI CHÚ -->
+<!-- ================= GHI CHÚ ================= -->
 
 <label class="label">
 Ghi chú
@@ -389,13 +467,18 @@ Ghi chú
 
 <textarea
 id="orderNote"
-placeholder="Ghi chú cho người cày (nếu có)">
-</textarea>
+placeholder="Ghi chú cho người cày (nếu có)"
+></textarea>
 
 
 <div class="warning">
+
 ⚠️ Kiểm tra kỹ dịch vụ và giá trước khi tạo đơn.
+
+<br>
+
 Thời gian thực hiện có thể mất vài ngày.
+
 </div>
 
 
@@ -437,6 +520,8 @@ id="logoutBtn">
 </div>
 
 
+<!-- ================= CONFIG ================= -->
+
 <script src="config.js"></script>
 
 <script>
@@ -446,19 +531,22 @@ const sb = supabase.createClient(
   window.SUPABASE_KEY
 );
 
+
 const $ = id =>
   document.getElementById(id);
 
 
+/* ================= MONEY ================= */
+
 function money(n){
 
   return new Intl.NumberFormat("vi-VN")
-    .format(n || 0) + "đ";
+    .format(Number(n) || 0) + "đ";
 
 }
 
 
-/* ================= HIỂN THỊ ================= */
+/* ================= SHOW ================= */
 
 function showLogin(){
 
@@ -496,30 +584,42 @@ function showAccount(){
 $("showRegister").onclick =
   showRegister;
 
+
 $("showLogin").onclick =
   showLogin;
 
 
-/* ================= ĐĂNG KÝ ================= */
+/* ================= REGISTER ================= */
 
 $("registerBtn").onclick = async () => {
 
-  $("registerMsg").textContent =
+  const msg =
+    $("registerMsg");
+
+  msg.classList.remove("success");
+
+  msg.textContent =
     "Đang tạo tài khoản...";
 
+
   const name =
-    $("registerName").value.trim();
+    $("registerName")
+      .value
+      .trim();
 
   const email =
-    $("registerEmail").value.trim();
+    $("registerEmail")
+      .value
+      .trim();
 
   const password =
-    $("registerPassword").value;
+    $("registerPassword")
+      .value;
 
 
   if(!name || !email || !password){
 
-    $("registerMsg").textContent =
+    msg.textContent =
       "Vui lòng nhập đầy đủ thông tin.";
 
     return;
@@ -528,7 +628,7 @@ $("registerBtn").onclick = async () => {
 
   if(password.length < 6){
 
-    $("registerMsg").textContent =
+    msg.textContent =
       "Mật khẩu phải có ít nhất 6 ký tự.";
 
     return;
@@ -537,14 +637,17 @@ $("registerBtn").onclick = async () => {
 
   const {data,error} =
     await sb.auth.signUp({
-      email,
-      password
+
+      email:email,
+
+      password:password
+
     });
 
 
   if(error){
 
-    $("registerMsg").textContent =
+    msg.textContent =
       error.message;
 
     return;
@@ -553,22 +656,39 @@ $("registerBtn").onclick = async () => {
 
   if(data.user){
 
-    await sb
-      .from("profiles")
-      .update({
-        full_name:name,
-        email:email
-      })
-      .eq("id",data.user.id);
+    const profile =
+      await sb
+        .from("profiles")
+        .update({
+
+          full_name:name,
+
+          email:email
+
+        })
+        .eq(
+          "id",
+          data.user.id
+        );
+
+
+    if(profile.error){
+
+      console.warn(
+        "Profile update:",
+        profile.error.message
+      );
+
+    }
 
   }
 
 
-  $("registerMsg").textContent =
-    "Đăng ký thành công.";
+  msg.textContent =
+    "✅ Đăng ký thành công.";
 
-  $("registerMsg")
-    .classList.add("success");
+  msg.classList.add("success");
+
 
   setTimeout(
     showLogin,
@@ -578,32 +698,49 @@ $("registerBtn").onclick = async () => {
 };
 
 
-/* ================= ĐĂNG NHẬP ================= */
+/* ================= LOGIN ================= */
 
 $("loginBtn").onclick = async () => {
 
-  $("loginMsg").textContent =
+  const msg =
+    $("loginMsg");
+
+  msg.textContent =
     "Đang đăng nhập...";
 
+
   const email =
-    $("loginEmail").value.trim();
+    $("loginEmail")
+      .value
+      .trim();
 
   const password =
-    $("loginPassword").value;
+    $("loginPassword")
+      .value;
+
+
+  if(!email || !password){
+
+    msg.textContent =
+      "Vui lòng nhập email và mật khẩu.";
+
+    return;
+  }
 
 
   const {data,error} =
     await sb.auth.signInWithPassword({
 
-      email,
-      password
+      email:email,
+
+      password:password
 
     });
 
 
   if(error){
 
-    $("loginMsg").textContent =
+    msg.textContent =
       error.message;
 
     return;
@@ -621,17 +758,27 @@ $("loginBtn").onclick = async () => {
 
 async function loadAccount(user){
 
+  if(!user)
+    return;
+
+
   showAccount();
 
-  $("userEmail").textContent =
-    user.email;
 
+  $("userEmail").textContent =
+    user.email || "";
+
+
+  /* WALLET */
 
   const {data,error} =
     await sb
       .from("wallets")
       .select("balance")
-      .eq("user_id",user.id)
+      .eq(
+        "user_id",
+        user.id
+      )
       .single();
 
 
@@ -648,24 +795,24 @@ async function loadAccount(user){
   }
 
 
-  loadDeposits(user);
+  await loadDeposits(user);
 
-  loadOrders(user);
+  await loadOrders(user);
 
 }
 
 
-/* ================= NẠP TIỀN ================= */
+/* ================= DEPOSITS ================= */
 
 $("depositBtn").onclick = async () => {
 
   const msg =
     $("depositMsg");
 
+  msg.classList.remove("success");
+
   msg.textContent =
     "Đang gửi yêu cầu...";
-
-  msg.classList.remove("success");
 
 
   const amount =
@@ -673,13 +820,17 @@ $("depositBtn").onclick = async () => {
       $("depositAmount").value
     );
 
+
   const customerAccountName =
     $("customerAccountName")
-      .value.trim();
+      .value
+      .trim();
+
 
   const transferCode =
     $("transferCode")
-      .value.trim();
+      .value
+      .trim();
 
 
   if(!amount || amount < 1000){
@@ -710,7 +861,9 @@ $("depositBtn").onclick = async () => {
 
 
   const {
-    data:{user}
+    data:{
+      user
+    }
   } =
     await sb.auth.getUser();
 
@@ -749,7 +902,10 @@ $("depositBtn").onclick = async () => {
 
   if(error){
 
+    console.error(error);
+
     msg.textContent =
+      "Không gửi được yêu cầu: " +
       error.message;
 
     return;
@@ -769,30 +925,41 @@ $("depositBtn").onclick = async () => {
   $("transferCode").value = "";
 
 
-  loadDeposits(user);
+  await loadDeposits(user);
 
 };
 
 
-/* ================= LỊCH SỬ NẠP ================= */
+/* ================= LOAD DEPOSITS ================= */
 
 async function loadDeposits(user){
+
+  const box =
+    $("depositList");
+
 
   const {data,error} =
     await sb
       .from("deposit_requests")
       .select("*")
-      .eq("user_id",user.id)
+      .eq(
+        "user_id",
+        user.id
+      )
       .order(
         "created_at",
-        {ascending:false}
+        {
+          ascending:false
+        }
       );
 
 
   if(error){
 
-    $("depositList").textContent =
-      "Không tải được lịch sử.";
+    console.error(error);
+
+    box.textContent =
+      "Không tải được lịch sử nạp.";
 
     return;
   }
@@ -800,29 +967,42 @@ async function loadDeposits(user){
 
   if(!data || !data.length){
 
-    $("depositList").textContent =
+    box.textContent =
       "Chưa có giao dịch.";
 
     return;
   }
 
 
-  $("depositList").innerHTML =
+  box.innerHTML =
     data.map(x => {
 
-      const status =
-        x.status === "approved"
-        ? "✅ Đã duyệt"
-        : x.status === "rejected"
-        ? "❌ Từ chối"
-        : "⏳ Chờ duyệt";
+      let status =
+        "⏳ Chờ duyệt";
+
+
+      if(x.status === "approved"){
+
+        status =
+          "✅ Đã duyệt";
+
+      }else if(
+        x.status === "rejected"
+      ){
+
+        status =
+          "❌ Từ chối";
+
+      }
 
 
       return `
 
         <div class="item">
 
-          <b>${money(x.amount)}</b>
+          <b>
+            ${money(x.amount)}
+          </b>
 
           <br>
 
@@ -831,15 +1011,18 @@ async function loadDeposits(user){
           <br>
 
           <small>
-          ${new Date(x.created_at)
-            .toLocaleString("vi-VN")}
+            Mã giao dịch:
+            ${x.transfer_code || "—"}
           </small>
 
           <br>
 
           <small>
-          Mã giao dịch:
-          ${x.transfer_code || "—"}
+            ${x.created_at
+              ? new Date(
+                  x.created_at
+                ).toLocaleString("vi-VN")
+              : ""}
           </small>
 
         </div>
@@ -851,7 +1034,7 @@ async function loadDeposits(user){
 }
 
 
-/* ================= CHỌN DỊCH VỤ ================= */
+/* ================= SERVICE ================= */
 
 let selectedService = "";
 
@@ -881,6 +1064,7 @@ document
       selectedService =
         card.dataset.service;
 
+
       selectedPrice =
         Number(
           card.dataset.price
@@ -889,27 +1073,33 @@ document
 
       $("selectedService")
         .textContent =
-        "Đã chọn: Haze Seas — " +
-        selectedService +
-        " — " +
-        money(selectedPrice);
+          "Đã chọn: Haze Seas — " +
+          selectedService +
+          " — " +
+          money(
+            selectedPrice
+          );
 
     };
 
   });
 
 
-/* ================= TẠO ĐƠN ================= */
+/* ================= CREATE ORDER ================= */
 
 $("orderBtn").onclick = async () => {
 
   const msg =
     $("orderMsg");
 
-  msg.textContent = "";
 
   msg.classList.remove("success");
 
+  msg.textContent =
+    "";
+
+
+  /* SERVICE */
 
   if(!selectedService){
 
@@ -920,17 +1110,23 @@ $("orderBtn").onclick = async () => {
   }
 
 
+  /* GAME ACCOUNT */
+
   const username =
     $("gameUsername")
-      .value.trim();
+      .value
+      .trim();
+
 
   const password =
     $("gamePassword")
       .value;
 
+
   const note =
     $("orderNote")
-      .value.trim();
+      .value
+      .trim();
 
 
   if(!username){
@@ -951,8 +1147,12 @@ $("orderBtn").onclick = async () => {
   }
 
 
+  /* USER */
+
   const {
-    data:{user}
+    data:{
+      user
+    }
   } =
     await sb.auth.getUser();
 
@@ -967,45 +1167,87 @@ $("orderBtn").onclick = async () => {
 
 
   /*
-    LƯU TÀI KHOẢN + MẬT KHẨU GAME
-    VÀO ORDERS ĐỂ ADMIN XEM.
+  ==================================================
+  QUAN TRỌNG
+
+  user_id = user.id
+
+  RLS của orders có thể kiểm tra:
+  user_id = auth.uid()
+
+  Đồng thời lưu:
+  game_username
+  game_password
+
+  để Admin đọc thông tin tài khoản.
+  ==================================================
   */
 
-  const {error} =
+
+  const orderData = {
+
+    user_id:user.id,
+
+    customer:user.email,
+
+    contact:user.email,
+
+    game:"Haze Seas",
+
+    service:selectedService,
+
+    price:selectedPrice,
+
+    booster:"",
+
+    status:"Chờ xử lý",
+
+    note:note,
+
+    game_username:username,
+
+    game_password:password
+
+  };
+
+
+  console.log(
+    "ORDER DATA:",
+    orderData
+  );
+
+
+  const {
+    data,
+    error
+  } =
     await sb
       .from("orders")
-      .insert({
-
-        customer:user.email,
-
-        contact:user.email,
-
-        game:"Haze Seas",
-
-        service:selectedService,
-
-        price:selectedPrice,
-
-        booster:"",
-
-        status:"Chờ xử lý",
-
-        note:note,
-
-        game_username:username,
-
-        game_password:password
-
-      });
+      .insert(orderData)
+      .select()
+      .single();
 
 
   if(error){
 
+    console.error(
+      "CREATE ORDER ERROR:",
+      error
+    );
+
+
     msg.textContent =
+      "❌ Không tạo được đơn: " +
       error.message;
 
     return;
   }
+
+
+  console.log(
+    "ORDER CREATED:",
+    data
+  );
 
 
   msg.textContent =
@@ -1013,6 +1255,8 @@ $("orderBtn").onclick = async () => {
 
   msg.classList.add("success");
 
+
+  /* CLEAR */
 
   $("gameUsername").value = "";
 
@@ -1037,32 +1281,45 @@ $("orderBtn").onclick = async () => {
 
   $("selectedService")
     .textContent =
-    "Chưa chọn dịch vụ";
+      "Chưa chọn dịch vụ";
 
 
-  loadOrders(user);
+  /* LOAD AGAIN */
+
+  await loadOrders(user);
 
 };
 
 
-/* ================= LỊCH SỬ ĐƠN ================= */
+/* ================= LOAD ORDERS ================= */
 
 async function loadOrders(user){
+
+  const box =
+    $("orderList");
+
 
   const {data,error} =
     await sb
       .from("orders")
       .select("*")
-      .eq("customer",user.email)
+      .eq(
+        "user_id",
+        user.id
+      )
       .order(
         "created_at",
-        {ascending:false}
+        {
+          ascending:false
+        }
       );
 
 
   if(error){
 
-    $("orderList").textContent =
+    console.error(error);
+
+    box.textContent =
       "Không tải được đơn hàng.";
 
     return;
@@ -1071,31 +1328,54 @@ async function loadOrders(user){
 
   if(!data || !data.length){
 
-    $("orderList").textContent =
+    box.textContent =
       "Chưa có đơn hàng.";
 
     return;
   }
 
 
-  $("orderList").innerHTML =
+  box.innerHTML =
     data.map(x => {
 
-      const status =
-        x.status === "Hoàn thành"
-        ? "✅ Hoàn thành"
-        : x.status === "Đang cày"
-        ? "🎮 Đang cày"
-        : x.status === "Đã hủy"
-        ? "❌ Đã hủy"
-        : "⏳ Chờ xử lý";
+      let status =
+        "⏳ Chờ xử lý";
+
+
+      if(
+        x.status ===
+        "Đang cày"
+      ){
+
+        status =
+          "🎮 Đang cày";
+
+      }else if(
+        x.status ===
+        "Hoàn thành"
+      ){
+
+        status =
+          "✅ Hoàn thành";
+
+      }else if(
+        x.status ===
+        "Đã hủy"
+      ){
+
+        status =
+          "❌ Đã hủy";
+
+      }
 
 
       return `
 
         <div class="item">
 
-          <b>${x.game || "Haze Seas"}</b>
+          <b>
+            ${x.game || "Haze Seas"}
+          </b>
 
           <br>
 
@@ -1104,20 +1384,23 @@ async function loadOrders(user){
           <br>
 
           <strong>
-          ${money(x.price)}
+            ${money(x.price)}
           </strong>
 
           <br>
 
           <span class="badge">
-          ${status}
+            ${status}
           </span>
 
           <br>
 
           <small>
-          ${new Date(x.created_at)
-            .toLocaleString("vi-VN")}
+            ${x.created_at
+              ? new Date(
+                  x.created_at
+                ).toLocaleString("vi-VN")
+              : ""}
           </small>
 
         </div>
@@ -1129,12 +1412,14 @@ async function loadOrders(user){
 }
 
 
-/* ================= ĐĂNG XUẤT ================= */
+/* ================= LOGOUT ================= */
 
 $("logoutBtn").onclick =
   async () => {
 
-    await sb.auth.signOut();
+    await sb.auth.signOut({
+      scope:"local"
+    });
 
     showLogin();
 
@@ -1160,6 +1445,33 @@ sb.auth.onAuthStateChange(
 
   }
 );
+
+
+/* ================= INITIAL ================= */
+
+(async () => {
+
+  const {
+    data:{
+      session
+    }
+  } =
+    await sb.auth.getSession();
+
+
+  if(session){
+
+    await loadAccount(
+      session.user
+    );
+
+  }else{
+
+    showLogin();
+
+  }
+
+})();
 
 </script>
 
