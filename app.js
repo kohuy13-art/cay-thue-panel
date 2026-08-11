@@ -28,8 +28,6 @@ const cls = s =>
   "wait";
 
 
-/* ================= LOAD ================= */
-
 async function load(){
 
   const a = await sb
@@ -54,8 +52,6 @@ async function load(){
 }
 
 
-/* ================= RENDER ================= */
-
 function render(){
 
   const q = ($("#search")?.value || "").toLowerCase();
@@ -70,8 +66,6 @@ function render(){
     (!f || o.status === f)
   );
 
-
-  /* DASHBOARD */
 
   $("#total").textContent = orders.length;
 
@@ -89,8 +83,6 @@ function render(){
     );
 
 
-  /* ĐƠN GẦN ĐÂY */
-
   $("#recent").innerHTML =
     orders.slice(0,6).map(o => `
       <p>
@@ -104,14 +96,12 @@ function render(){
     `).join("") || "Chưa có đơn";
 
 
-  /* BẢNG ĐƠN */
-
   $("#rows").innerHTML =
     os.map(o => `
 
       <tr>
 
-        <td>${esc(o.id.slice(0,8))}</td>
+        <td>${esc(String(o.id).slice(0,8))}</td>
 
         <td>${esc(o.customer)}</td>
 
@@ -152,8 +142,6 @@ function render(){
     `).join("");
 
 
-  /* KHÁCH HÀNG */
-
   let c = {};
 
   orders.forEach(o => {
@@ -165,7 +153,6 @@ function render(){
     };
 
     c[o.customer].count++;
-
     c[o.customer].total += Number(o.price || 0);
 
   });
@@ -175,21 +162,14 @@ function render(){
     Object.entries(c).map(([n,v]) => `
 
       <tr>
-
         <td>${esc(n)}</td>
-
         <td>${esc(v.contact)}</td>
-
         <td>${v.count}</td>
-
         <td>${money(v.total)}</td>
-
       </tr>
 
     `).join("");
 
-
-  /* BOOSTERS */
 
   $("#boostersGrid").innerHTML =
     boosters.map(b => `
@@ -213,37 +193,41 @@ function render(){
 }
 
 
-/* ================= XEM TÀI KHOẢN GAME ================= */
+/* XEM TÀI KHOẢN GAME */
 
-window.viewGameAccount = id => {
+window.viewGameAccount = async id => {
 
-  const o = orders.find(x => x.id === id);
+  const { data, error } = await sb
+    .from("orders")
+    .select("id,game,service,game_username,game_password")
+    .eq("id", id)
+    .single();
 
-  if(!o){
-    alert("Không tìm thấy đơn.");
+  if(error){
+    alert("Không lấy được tài khoản game:\n\n" + error.message);
     return;
   }
 
-  const username = o.game_username || "Chưa có";
-  const password = o.game_password || "Chưa có";
+  if(!data){
+    alert("Không tìm thấy đơn hàng.");
+    return;
+  }
 
   alert(
 `🎮 THÔNG TIN TÀI KHOẢN
 
-Game: ${o.game || ""}
-Dịch vụ: ${o.service || ""}
+Game: ${data.game || "—"}
+Dịch vụ: ${data.service || "—"}
 
 👤 Tài khoản:
-${username}
+${data.game_username || "Chưa có"}
 
 🔑 Mật khẩu:
-${password}`
+${data.game_password || "Chưa có"}`
   );
 
 };
 
-
-/* ================= ORDER ================= */
 
 function openOrder(o){
 
@@ -276,8 +260,6 @@ $("#close").onclick = () =>
   $("#modal").classList.remove("show");
 
 
-/* ================= LOGIN ================= */
-
 $("#loginForm").onsubmit = async e => {
 
   e.preventDefault();
@@ -285,29 +267,17 @@ $("#loginForm").onsubmit = async e => {
   $("#loginMsg").textContent =
     "Đang đăng nhập...";
 
-  const email =
-    $("#email").value.trim();
-
-  const password =
-    $("#password").value;
-
   const { error } =
     await sb.auth.signInWithPassword({
-      email,
-      password
+      email:$("#email").value.trim(),
+      password:$("#password").value
     });
 
-  if(error){
-
-    $("#loginMsg").textContent =
-      error.message;
-
-  }
+  if(error)
+    $("#loginMsg").textContent = error.message;
 
 };
 
-
-/* ================= SESSION ================= */
 
 sb.auth.onAuthStateChange(
   (_event, session) => {
@@ -315,7 +285,6 @@ sb.auth.onAuthStateChange(
     if(session){
 
       $("#login").classList.add("hidden");
-
       $("#app").classList.remove("hidden");
 
       load();
@@ -323,7 +292,6 @@ sb.auth.onAuthStateChange(
     }else{
 
       $("#login").classList.remove("hidden");
-
       $("#app").classList.add("hidden");
 
     }
@@ -332,15 +300,11 @@ sb.auth.onAuthStateChange(
 );
 
 
-/* ================= LOGOUT ================= */
-
 $("#logout").onclick = () =>
   sb.auth.signOut({
     scope:"local"
   });
 
-
-/* ================= NAV ================= */
 
 $$(".nav").forEach(n => {
 
@@ -367,14 +331,9 @@ $$(".nav").forEach(n => {
 });
 
 
-/* ================= SEARCH ================= */
-
 $("#search").oninput = render;
-
 $("#filter").onchange = render;
 
-
-/* ================= SAVE ORDER ================= */
 
 $("#orderForm").onsubmit = async e => {
 
@@ -403,16 +362,13 @@ $("#orderForm").onsubmit = async e => {
   const oid = $("#oid").value;
 
   const r = oid
-
     ? await sb
         .from("orders")
         .update(o)
         .eq("id",oid)
-
     : await sb
         .from("orders")
         .insert(o);
-
 
   if(r.error){
 
@@ -421,8 +377,7 @@ $("#orderForm").onsubmit = async e => {
 
   }
 
-  $("#modal")
-    .classList.remove("show");
+  $("#modal").classList.remove("show");
 
   load();
 
@@ -435,18 +390,15 @@ window.editOrder = id =>
   );
 
 
-/* ================= DELETE ================= */
-
 window.delOrder = async id => {
 
   if(!confirm("Xóa đơn này?"))
     return;
 
-  const r =
-    await sb
-      .from("orders")
-      .delete()
-      .eq("id",id);
+  const r = await sb
+    .from("orders")
+    .delete()
+    .eq("id",id);
 
   if(r.error){
 
@@ -460,8 +412,6 @@ window.delOrder = async id => {
 };
 
 
-/* ================= BOOSTER ================= */
-
 $("#addBooster").onclick = () =>
   $("#bmodal").classList.add("show");
 
@@ -473,19 +423,15 @@ $("#boosterForm").onsubmit = async e => {
 
   e.preventDefault();
 
-  const r =
-    await sb
-      .from("boosters")
-      .insert({
+  const r = await sb
+    .from("boosters")
+    .insert({
 
-        name:$("#bn").value,
+      name:$("#bn").value,
+      game:$("#bg").value,
+      contact:$("#bc").value
 
-        game:$("#bg").value,
-
-        contact:$("#bc").value
-
-      });
-
+    });
 
   if(r.error){
 
@@ -494,8 +440,7 @@ $("#boosterForm").onsubmit = async e => {
 
   }
 
-  $("#bmodal")
-    .classList.remove("show");
+  $("#bmodal").classList.remove("show");
 
   e.target.reset();
 
